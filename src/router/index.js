@@ -6,6 +6,8 @@ import login from '@/components/login'
 import home from '@/components/home'
 import setting from '@/components/setting'
 import middle from '@/components/middle'
+import details from '@/components/details'
+import orderUserInfo from '@/components/orderUserInfo'
 
 import sale from '@/components/sale'
 import buy from '@/components/buy'
@@ -38,11 +40,22 @@ import cemail from '@/components/set/cemail'
 Vue.use(Router)
 
 export default new Router({
+  linkActiveClass: 'mui-active',
   routes: [
     {
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
+    },
+    {
+      path:'/orderUserInfo',
+      name:'orderUserInfo',
+      component:orderUserInfo
+    },
+    {
+      path:'/details',
+      name:'details',
+      component:details
     },
     {
       path: '/reg',

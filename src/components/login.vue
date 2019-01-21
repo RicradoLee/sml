@@ -228,7 +228,7 @@ export default {
           }
         };
 
-        let url = "http://192.168.199.101:3001/forPwd";
+        let url = sessionStorage.getItem('serverIp')+"/forPwd";
         this.axios.post(
           url,
           this.qs.stringify(this.forPwdData),{
@@ -254,7 +254,7 @@ export default {
             user:this.forPwdData.data.user || null
           }
         };
-        let url = "http://192.168.199.101:3001/forPwd";
+        let url = sessionStorage.getItem('serverIp')+"/forPwd";
         this.axios.post(
           url,
           this.qs.stringify(this.forPwdData),{
@@ -274,7 +274,7 @@ export default {
     checkAuthToken(){
       if(this.pageNum==2){
         console.log(this.forPwdData);
-        let url = "http://192.168.199.101:3001/forPwd";
+        let url = sessionStorage.getItem('serverIp')+"/forPwd";
         this.axios.post(
           url,
           this.qs.stringify(this.forPwdData),{
@@ -293,7 +293,7 @@ export default {
     },
     getAuth(){
       //获取验证码
-      let url = "http://192.168.199.101:3001/getToken";
+      let url = sessionStorage.getItem('serverIp')+"/getToken";
       this.axios
         .get(url)
         .then(res => {
@@ -332,7 +332,7 @@ export default {
     LoginQue(){
       if(this.pageNum==0){
         console.log(this.loginData);
-        let url = "http://192.168.199.101:3001/login";
+        let url = sessionStorage.getItem('serverIp')+"/login";
         this.axios.post(
           url,
           this.qs.stringify(this.loginData),{

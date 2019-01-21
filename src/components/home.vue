@@ -1,127 +1,171 @@
 <template>
-    <div class="app-index">
-      <!-- 个人信息面板框 -->
-          <div class="ui-dialog-cnt pa tr t24 l50">
-           <ul class="ui-row">
-                <li class="ui-col ui-col">
-                  <p class="assets">总资产</p>
-                  <p class="assetsMon">{{homeData.data.totalAssets}}</p>
-                </li>
-                <hr>
-                <li class="ui-col ui-col">
-                  <ul class="ui-row">
-                    <li class="ui-col ui-col-50">
-                      <p class="balance">余额</p>
-                      <p class="balanceMon">{{homeData.data.balance}}</p>
-                    </li>
-                    <li class="ui-col ui-col-50">
-                      <button class="ui-btn-lg-nowhole ui-btn-primary btn">提现</button>
-                    </li>
-                  </ul>
-                </li>
-                <hr>
-                <li class="ui-col ui-col-50 br">
-                  <p class="yesEarnings">昨日收益</p>
-                  <p class="yesMon">{{homeData.data.yesEarnings}}</p>
-                </li>
-                <li class="ui-col ui-col-50">
-                  <p class="addEarnings">累计收益</p>
-                  <p class="addMon">{{homeData.data.addEarnings}}</p>
-                </li>
-            </ul>
+   <div class='app-index'>
+      <!--顶部资产信息面板-->
+      <div class='mInfo'>
+        <!--内层-->
+        <div class='tInfo'>
+          <ul>
+            <li>
+              <p class='infoTitle'>总资产(元)</p>
+              <p class='infoDet'>{{homeData.data.totalAssets}}</p>
+            </li>
+            <li>
+              <div>
+                <p class='infoTitle'>余额(元)</p>
+                <p class='infoDet'>{{homeData.data.balance}}</p>
+              </div>
+              <mt-button size='small' type='primary'>提现</mt-button>
+            </li>
+            <li>
+              <div>
+                <p class='infoTitle'>昨日收益(元)</p>
+                <p class='infoDet'>{{homeData.data.yesEarnings}}</p>
+              </div>
+              <div>
+                <p class='infoTitle'>累计收益(元)</p>
+                <p class='infoDet'>{{homeData.data.addEarnings}}</p>
+              </div>
+            </li>
+          </ul>
         </div>
-        <!-- 双横幅按钮 -->
-        <ul class="ui-list ui-list-link ui-list-single ui-border-tb pa tr t50 l50 w102">
-          <li>
-              <div class="ui-avatar-s grzc">
-                  
-              </div>
-              <div class="ui-list-info ui-border-t" @click="toBuy">
-                  <h4 class="ui-nowrap">购入资产</h4>
-              </div>
-          </li>
-          <li>
-              <div class="ui-avatar-s mczc">
-              </div>
-              <div class="ui-list-info ui-border-t" @click="toSale">
-                  <h4 class="ui-nowrap">卖出资产</h4>
-              </div>
-          </li>
-        </ul>
+      </div>
 
-        <!-- 交易记录和邀请收益选项卡 -->
-        <section class="ui-panel ui-panel-center ui-border-tb pa tr t60 l50 w102">
-          <ul class="ui-row">
-            <li class="ui-col ui-col-50 tc" @click="busOrInvitation=0" :class="{bc:busOrInvitation == 0}">
-              我的交易
-            </li>
-            <li class="ui-col ui-col-50 tc"  @click="busOrInvitation=1" :class="{bc:busOrInvitation == 1}">
-              我的邀请
-            </li>
-          </ul>
-        </section>
+      <!--中部-->
+      <div>
+        <div @click="toBuy">
+          <mt-cell title='购入资产' icon='more'>
+            <img slot="icon" src="../../static/img/@3x/mczc.png" width="24" height="24">
+            <div class='arrow'></div>
+          </mt-cell>
+        </div>
+        <div @click="toSale">
+          <mt-cell title='卖出资产' icon='more'>
+            <img slot="icon" src="../../static/img/@3x/grzc.png" width="24" height="24">
+            <div class='arrow'></div>
+          </mt-cell>
+        </div>
+      </div>
 
-        <ul class="ui-list ui-list-link ui-list-single ui-border-tb pa tr t82-3 l50 w102" :class="{showed:busOrInvitation == 1}">
-            <li class="x">
-                <div class="ui-list-info ui-border-t">
-                  <h4 class="ui-nowrap h05">
-                    <p class="pa tr t20 l15">交易号:{{homeData.data.totalAssets}}
-                      <span class="pa tr l400 t50">匹配时间：{{homeData.data.dealArr[0].expireDate | dateFilter}}</span>
-                    </p>
-                    <p class="pa tr t60 l10">购入</p>
-                      <p class="pa tr t50 l26">金额:xx(元)
-                      </p>
-                      <p class="pa tr t70 l27">数额:XX(台)
-                      </p>
-                  </h4>
-                  <p class="pa tr t66 l80">状态:{{homeData.data.dealArr[0].statusCode}}</p>
-                </div>
-            </li>
-            <li class="x">
-                <div class="ui-list-info ui-border-t h6">
-                    <p class="pa tr t20 l18">对方用户:xxxx</p>
-                    <p class="pa tr t46 l37">您需要在XXX时间内之前检查收款并为对方确认，超时会被处罚</p>
-                    <button class="ui-btn-lg-nowhole ui-btn-primary pa tr t80 l35 br30">查看对方信息</button>
-                </div>
-                <button class="ui-btn-lg-nowhole ui-btn-primary pa tr t30 l88 w20 zIndex">我已付款</button>
-                <button class="ui-btn-lg-nowhole ui-btn-primary pa tr t72 l88 w20 zIndex">投诉对方</button>
-            </li>
-            <li class="csfh">
-              <p class="pa tr t0 l50 csfhA">若超时被投诉成功会导致封号</p>
-            </li>
-          </ul>
-          
-
-          <!-- 我的邀请 -->
-          <ul class="ui-list ui-list-link ui-list-single ui-border-tb pa tr t70 l50 w102 h6" :class="{showed:busOrInvitation == 0}">
-            <li class="x">
-                <div class="ui-list-info ui-border-t">
-                  <h4 class="ui-nowrap">
-                    <p>
-                      <span class="pa tr t70 l10 red">第{{homeData.data.invitation.num}}代邀请</span>
-                      <span class="pa tr t70 l50 red">已激活</span>
-                      <span class="pa tr t70 l80 red">奖励金</span>
-                    </p>
-                    <p>
-                      <span class="pa tr t200 l20 red">用户名:{{homeData.data.invitation.invUser}}</span>
-                      <span class="pa tr t200 l80 red">{{homeData.data.invitation.money}}</span>
-                    </p>
-                    <p class="pa tr t300 l22 red">注册时间:{{homeData.data.invitation.invDate | dateFilter}}</p>
-                  </h4>
-                </div>
-            </li>
-          </ul>
-
-
-          
-    </div>    
+      <!-- 交易记录和邀请收益选项卡 -->
+        <!-- navbar -->
+      
+        <mt-navbar class="page-part" v-model="selected">
+          <mt-tab-item id="1">交易记录</mt-tab-item>
+          <mt-tab-item id="2">分享收益</mt-tab-item>
+        </mt-navbar>
+    
+    
+      <!-- tabcontainer -->
+        <mt-tab-container v-model="selected">
+          <mt-tab-container-item id="1">
+            <!--选项卡详情-->
+            <div class='cecBox' @click='jumpToDet' v-for='item in homeData.data.dealArr'>
+              <ul>
+                <!--交易记录-->
+                <li class='record upRecord'>
+                  <div>
+                    <div>
+                      <p class='firstT'>投资金额:<span style='color:red;'>{{homeData.data.totalAssets}}</span>元</p>
+                      <p class='secT'>交易号:{{item.dealId}}</p>
+                    </div>
+                    <div>
+                      <p class='firstT' style='color:#f90;'>申购中</p>
+                    </div>
+                  </div>
+                  <div>
+                    <ul>
+                      <li>
+                        <p style='color:green;'>购入</p>
+                      </li>
+                      <li>
+                        <p class='secT'>产品期限：{{item.proData}}</p>
+                        <p class='secT'>到期时间：{{item.expireDate | dateFilter}}</p>
+                      </li>
+                      <li>
+                        <p class='secT'>{{item.estAmount}}</p>
+                        <p class='secT'>预估收益(元)</p>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class='record'>
+                  <div>
+                    <div>
+                      <p class='firstT'>卖出金额:<span style='color:red;'>{{homeData.data.totalAssets}}</span>元</p>
+                      <p class='secT'>交易号:{{item.dealId}}</p>
+                    </div>
+                    <div>
+                      <p class='firstT' style='color:#f90;'>已完成</p>
+                    </div>
+                  </div>
+                  <div>
+                    <ul>
+                      <li>
+                        <p style='color:green;'>卖出</p>
+                      </li>
+                      <li>
+                        <p class='secT'>卖出方式：提现</p>
+                        <p class='secT'>卖出时间：{{item.expireDate | dateFilter}}</p>
+                      </li>
+                      <li>
+                        <p class='secT'>{{item.estAmount}}</p>
+                        <p class='secT'>预估收益(元)</p>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div style='height:200px;'></div>
+          </mt-tab-container-item>
+          <mt-tab-container-item id="2">
+            <div class='cecBox' v-for='item in homeData.data.dealArr'>
+              <ul>
+                <!--交易记录-->
+                <li class='record'>
+                  <div style='border-bottom:1px solid gray;'>
+                    <div>
+                      <p class='firstT'>投资金额:<span style='color:red;'>{{homeData.data.totalAssets}}</span>元</p>
+                      <p class='secT'>交易号:{{item.dealId}}</p>
+                    </div>
+                    <div>
+                      <p class='firstT' style='color:#f90;'>收益中</p>
+                    </div>
+                  </div>
+                  <div>
+                    <ul>
+                      <li>
+                        <p class='secT'>投资方：王先生</p>
+                        <p class='secT'>到期时间:02-24 12:00:00</p>
+                      </li>
+                      <li>
+                        <p class='secT'>第8代</p>
+                        <p style='color:#f90;font-size:18px;'>1,254.85</p>
+                        <p class='secT'>预估收益(元)</p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div style='border-top:1px solid gray;'>
+                    <p class='secT'>此份收益将在<span style='color:#000;'>05-21 12:00:00</span>后可提取，若认购方违约此份收益将无效。</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div style='height:200px;'></div>
+          </mt-tab-container-item>
+        </mt-tab-container>
+      
+      
+   </div>   
 </template>
 <script>
+import {Button,Cell,Navbar, TabItem} from 'mint-ui'
 export default {
   name: "app-index",
   data() {
     return {
       busOrInvitation:0,
+      selected:'1',
       loginData:this.$store.state.loginData,
       homeData:{
         type:301,
@@ -162,6 +206,9 @@ export default {
     this.getHomeData();
   },
   methods:{
+    jumpToDet(){
+      this.$router.push('/details');
+    },
     toSale(){
       this.$router.push('/sale');
     },
@@ -169,7 +216,7 @@ export default {
       this.$router.push('/buy');
     },
     getHomeData(){
-        let url = "http://192.168.199.101:3001/home";
+        let url = sessionStorage.getItem('serverIp')+"/home";
         this.axios.post(
           url,
           this.qs.stringify(this.loginData),{
@@ -188,138 +235,121 @@ export default {
 };
 </script>
 <style lang="less">
-ul,p{
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-  text-align: left;
-  padding-inline-start: 0px;
+div.mInfo{
+  background:#1E90FF;
+  padding:40px 20px;
 }
-.ui-row{
-  hr{
-    width: 80%;
-  }
+.mInfo .tInfo{
+  background:#fff;
+  border-radius:5%;
+  padding:20px 20px;
 }
-.ui-dialog-cnt {
-  border-top: 0px solid; 
-  width: 90%;
-  height: 3rem;
-  .ui-row{
-    margin-top: 0.3rem;
-  }
+.tInfo>ul>li{
+  display:flex;
+  padding:10px 0;
 }
-.ui-row-flex-ver .ui-col {
-    height: 0.5rem;
+.tInfo>ul>li:nth-child(1){
+  flex-direction:column;
+  align-items:start;
+  border-bottom:1px solid gray;
 }
-.ui-list{
-  .ui-nowrap{
-    .red{
-      font-size: 0.2rem;
-      color: #ff0000;
-    }
-    .l400{
-      left: 400%;
-    }
-    .t300 {
-        top: 330%;
-    }
-  }
+.tInfo>ul>li:nth-child(2){
+  border-bottom:1px solid gray;
 }
-.assets{
-  margin-left: 10%;
-  margin-top: 2%;
+.tInfo>ul>li:nth-child(2),.tInfo>ul>li:nth-child(3){
+  flex-direction:row;
+  justify-content:space-between;
 }
-.assetsMon{
-  margin-left: 15%;
-  margin-top: 0%;
+
+.mInfo .infoTitle{
+  color:gray;
+  fontsize:14px;
 }
-.balance{
-  margin-left: 20%;
-  margin-top: 0%;
+.mInfo .infoDet{
+  font-weight:bold;
 }
-.balanceMon{
-  margin-left: 30%;
-  margin-top: 0%;
+.tInfo>ul>li:nth-child(1) p:nth-child(2){
+  color:#000;
+  font-size:22px;
 }
-.btn{
-  width: 50%;
+.tInfo>ul>li:nth-child(2) div p:nth-child(2),.tInfo>ul>li:nth-child(3) div p:nth-child(2){
+  color:#000;
+  font-size:18px;
 }
-.yesEarnings,.yesMon,.addEarnings,.addMon,.tc{
-  text-align: center;
+.tInfo>ul>li:nth-child(3) div{
+  display:flex;
+  flex-direction:column;
+  align-items:start;
 }
-.br{
-  border-right:2px solid #dddddd;
+.tInfo>ul>li:nth-child(3) div:nth-child(1) p:nth-child(2){
+  color:#0c0;
 }
-.grzc{
-  background-image:url('/static/img/@3x/grzc.png');
-  background-size: 34px 34px;
-   background-repeat: no-repeat;
+.tInfo>ul>li:nth-child(3) div:nth-child(2) p:nth-child(2){
+  color:#f00;
 }
-.mczc{
-  background-image:url('/static/img/@3x/mczc.png');
-  background-size: 33px 33px;
-  background-repeat: no-repeat;
+
+.mint-cell-title{
+  display:flex;
+  justify-content:start;
+  align-items:center;
 }
-.tc{
-  padding-top:10px;
-  padding-bottom:10px;
+.arrow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-.ui-list-link>.x:after {
-    background: #fff;
-    z-index: 0;
+.arrow::after{
+  content:'';
+  width:15px;
+  height:15px;
+  border-top:3px solid #ccc;
+  border-right:3px solid #ccc;
+  transform:rotate(45deg);
 }
-.showed{
-  display: none;
+
+ul.checked{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
 }
-.bc{
-  color:#ff9726;
-  border-bottom:2px solid #ff9726;
-  
+
+
+.cecBox ul{
+  padding:10px 10px;
 }
-.h6{
-  height: 1.2rem;
+.cecBox>ul>li{
+  margin-bottom:15px;
 }
-.h05{
-  height: 0.68rem;
+
+.cecBox{
+  background:#fff;
 }
-.pr{
-  position: absolute;
-  top: -160%;
-  left: 0%;
+.record{
+  display:flex;
+  flex-direction:column;
 }
-.red{
-  font-size: 0.2rem;
-  color: #ff0000;
+.record div:nth-child(1){
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-.t82-3{
-  top:77.8%;
+.record div:nth-child(1) div:nth-child(1){
+  display:flex;
+  flex-direction:column;
+  align-items:start;
 }
-.zIndex{
-  z-index: 2;
+.record div:nth-child(2) ul{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
 }
-.br30{
-  border-radius: 60px;
-  background: #fff;
-  color: #1492f8;
-  //border: 1px solid #000000;
+.firstT{
+  font-size:21px;
+  color:#000;
 }
-.csfh{
-  width: 100%;
-  height: 0.1rem;
-}
-.csfh::after{
-    content: "";
-    display: block;
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    margin-top: -7px;
-    width: 8px;
-    height: 14px;
-    background:transparent !important;
-    -webkit-background-size: 100% auto;
-    background-size: 100% auto;
-}
-.csfhA{
-  color: #ff0000 !important;
+.secT{
+  color:gray;
+  font-size:14px;
 }
 </style>

@@ -1,82 +1,59 @@
 <template>
     <div class="appMiddle">
         <!-- 运行状态 -->
+        <div>
+					<ul class='myState'>
+						<li><p>运行中：&nbsp;&nbsp;&nbsp;&nbsp;{{middleData.data.service}}(台)</p></li>
+						<li><p>已到期：&nbsp;&nbsp;&nbsp;&nbsp;{{middleData.data.haveExpired}}(台)</p></li>
+						<li><p>可售出：&nbsp;&nbsp;&nbsp;&nbsp;{{middleData.data.canSale}}(台)</p></li>
+					</ul>
+					<ul class='myAmount'>
+						<li>
+							<p>今日收益(元)</p>
+							<p>{{middleData.data.todayAmount}}</p>
+						</li>
+						<li>
+							<p>我的收益(元)</p>
+							<p>{{middleData.data.myAmount}}</p>
+						</li>
+					</ul>
+				</div>
+
+				<!--中间收益选项-->
+				<div>
+        <div>
+          <mt-cell title='收益兑换'>
+            <div class='arrow'></div>
+          </mt-cell>
+        </div>
+        <div>
+          <mt-cell title='提取收益'>
+            <div class='arrow'></div>
+          </mt-cell>
+        </div>
+      </div>
+
+			<!--订单详情-->
+			<div class='orderDet' v-for='item of middleData.data.serviceForm'>
+				<div class='upDet'>
+					<div class='lImg'><img src="static/img/@3x/收藏.png" class="indentImg"></div>
+					<div class='upMiddle'>
+						<p>编号{{item.sId}}</p>
+						<p>{{item.slode}}...</p>
+					</div>
+					<div class='rDet'>
+						<p>已收益(元)</p>
+						<p>{{item.haveAmount}}</p>
+					</div>
+				</div>
+				<div class='downTime'>
+					<p>创建时间:{{item.createDate | dateFilter}}</p>
+					<p>到期时间:{{item.delDate | dateFilter }}</p>
+				</div>
+			</div>
+			
         
-        <section class="ui-panel ui-panel-center ui-border-tb">
-            <div class="ui-row-flex ui-whitespace">
-                <div class="ui-col ui-col">运行中:{{middleData.data.service}}(台)</div>
-            </div>
-            <div class="ui-row-flex ui-whitespace">
-                <div class="ui-col ui-col">已到期:{{middleData.data.haveExpired}}(台)</div>
-            </div>
-            <div class="ui-row-flex ui-whitespace">
-                <div class="ui-col ui-col">可售出:{{middleData.data.canSale}}(台)</div>
-            </div>
-            <ul class="ui-row">
-                <li class="ui-col ui-col-50">
-                    <p>今日收益</p>
-                    <p>{{middleData.data.todayAmount}}(元)</p>
-                </li>
-                <li class="ui-col ui-col-50">
-                    <p>今日收益</p>
-                    <p>{{middleData.data.myAmount}}(元)</p>
-                </li>
-            </ul>
-        </section>
-
-
-
-        <ul class="ui-list ui-list-link ui-list-single ui-border-tb mt40">
-            <li>
-                <div class="ui-list-info ui-border-t">
-                    <h4 class="ui-nowrap">收益兑换</h4>
-                </div>
-            </li>
-            <li>
-                <div class="ui-list-info ui-border-t">
-                    <h4 class="ui-nowrap">提取收益</h4>
-                </div>
-            </li>
-        </ul>
-
-
-
-        <!-- 订单详情 -->
-        <section class="ui-panel ui-panel-center ui-border-tb mt20">
-            <h2 class="ui-arrowlink">
-                <span>订单详情</span>
-            </h2>
-            <div class="ui-row-flex ui-whitespace">
-                <!-- 栅格布局 左1/3 -->
-                <div class="ui-col">
-                    <img src="static/img/@3x/收藏.png" class="indentImg">
-                </div>
-                <!-- 栅格布局 右2/3 -->
-                <div class="ui-col ui-col-2">
-                    <div class="ui-row-flex ui-whitespace ui-row-flex-ver">
-                        <div class="ui-col">
-                            <p>
-                                <span class="pa tr t38 l41">编号：{{middleData.data.serviceForm[0].sId}}</span>
-                                <span class="pa tr t38 l80">已收益</span>
-                            </p>
-                        </div>
-                        <div class="ui-col">
-                            <p>
-                                <span class="pa tr t58 l41">{{middleData.data.serviceForm[0].slode}}</span>
-                                <span class="pa tr t58 l80">{{middleData.data.serviceForm[0].haveAmount}}</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 栅格布局 100% -->
-            <div class="ui-col">
-                <p>
-                    <span class="pa tr t87 l25">创建时间:{{middleData.data.serviceForm[0].createDate | dateFilter}}</span>
-                    <span class="pa tr t87 r18">到期时间:{{middleData.data.serviceForm[0].delDate | dateFilter }}</span>
-                </p>
-            </div>
-        </section>
+			<div style='height:20px;'></div>
     </div>
 </template>
 <script>
@@ -110,7 +87,7 @@ export default {
   },
   methods:{
     getMiddleData(){
-        let url = "http://192.168.199.101:3001/middle";
+        let url = sessionStorage.getItem('serverIp')+"/middle";
         this.middle = this.$store.state.loginData;
         this.axios.post(
           url,
@@ -130,38 +107,93 @@ export default {
 };
 </script>
 <style lang="less">
-#app #appMiddle .ui-panel{
-    text-align: left;
+ul{
+	list-style:none;
 }
-.ui-nowrap {
-  color: #000;
+
+.myState{
+	margin-top:5%;
+	margin-left:-40%;
 }
-.ui-arrowlink {
-  color: #000;
+.myState p{
+	color:#f00;
+	font-size:16px;
 }
-.ui-arrowlink:after {
-  background: #ffffff;
+
+.myAmount{
+	display:flex;
+	justify-content:space-around;
 }
-.indentImg {
-  width: 48px;
-  height: 48px;
-  text-align: left;
+.myAmount li{
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+	width:50%;
+	border-top:2px solid #000;
+	border-bottom:2px solid #000;
+	padding:5px 0;
 }
-.clear {
-  height: 5rem;
-  width: 100%;
-  background: #000;
+.myAmount li:nth-child(1){
+	border-right:2px solid #000;
 }
-.colorB {
-  color: #000;
+.myAmount li p{
+	color:#000;
+	font-size:16px;
+	margin:0;
+	padding:0;
 }
-.ui-row-flex-ver .ui-col {
-   height: 0.5rem;
+
+.mint-cell-text{
+	margin-left:40px;
 }
-.mt20{
-    margin-top: 10%;
+
+.orderDet{
+	margin-top:5%;
+	border-bottom:2px solid #000;
 }
-.r18{
-    right: -18%;
+.orderDet p{
+	margin:0;
+	padding:0;
+	color:#000;
+}
+
+.upDet{
+	display:flex;
+	justify-content:space-around;
+}
+.upDet .lImg{
+	width:30%
+}
+.lImg img{
+	width:60%;
+}
+.upDet .upMiddle,.upDet .rDet{
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+}
+.upDet .upMiddle p:nth-child(1){
+	float:left;
+}
+.upDet .rDet{
+	align-items:start;
+}
+.upDet .upMiddle p,.upDet .rDet p{
+	margin-top:6px;
+	font-size:16px;
+}
+
+.downTime{
+	display:flex;
+	justify-content:space-between;
+	margin-top:8px;
+}
+.downTime p:nth-child(1){
+	margin-left:7%;
+}
+.downTime p:nth-child(2){
+	margin-right:7%;
 }
 </style>

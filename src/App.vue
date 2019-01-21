@@ -2,50 +2,66 @@
   <div id="app">
     <!-- 顶部导航栏 -->
     <el-row>
-      <el-col :span="24" class="w103">
+      <el-col :span="24" class="w103" v-if='!uInfo'>
         <div class="grid-content bg-purple-dark">
-          首页
+         首页
+        </div>
+      </el-col>
+      <el-col :span="24" class="w103" v-else>
+        <div class="grid-content bg-purple-dark user">
+          <span class='headmsg'>{{uname}}用户名占位符</span>
+          <div>
+            <span class='headmsg'>退出登录</span>
+            <span class='el-icon-circle-close headmsg'></span>
+          </div>
         </div>
       </el-col>
     </el-row>
     <router-view/>
     <!-- 底部导航栏 -->
     <footer>
-      <el-row>
-        <el-col :span="8">
-          <div class="grid-content bg-purple-dark">
-            <i class="el-icon-menu" @click="toMenu"></i>
-          </div>
-        </el-col>
-        <el-col :span="8">
-          <div class="grid-content bg-purple-dark">
-           <i class="el-icon-share" @click="toShare"></i>
-          </div>
-        </el-col>
-        <el-col :span="8">
-          <div class="grid-content bg-purple-dark">
-            <i class="el-icon-setting" @click="toSetting"></i>
-          </div>
-        </el-col>
-      </el-row>
+      <nav class="mui-bar mui-bar-tab">
+			<router-link class="mui-tab-item " to="/index" >
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</router-link>
+			<router-link class="mui-tab-item" to="/middle"  >
+				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge"></span></span>
+				<span class="mui-tab-label">申资</span>
+			</router-link>
+			<router-link class="mui-tab-item" to="/setting">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</router-link>
+		</nav>
     </footer>
     
   </div>
 </template>
 
 <script>
+import { Tabbar, TabItem } from 'mint-ui';
+
 export default {
   name: "App",
   data() {
     return {
       screenWidth: window.innerWidth, //屏幕宽度
-      screenHeight: window.innerHeight // 屏幕尺寸
+      screenHeight: window.innerHeight, // 屏幕尺寸
+      uInfo:false,//用户信息
+      uname:''
     };
   },
   created() {
     this.isCrosswise();
   },
   mounted() {
+    if(sessionStorage.getItem('uname'))
+    {
+      this.uInfo=true;
+      this.uname=sessionStorage.getItem('uname');
+    }
+
     const that = this;
 
     window.onresize = () => {
@@ -100,6 +116,10 @@ export default {
   },
   computed: {},
   methods: {
+    jumpTo(e){
+      console.log(111);
+      console.log(e.target);
+    },
     isCrosswise() {
       if (this.screenWidth > this.screenHeight) {
         alert(`请竖屏欣赏`);
@@ -132,12 +152,15 @@ export default {
     },
     toMenu(){
       this.$router.push('/index');
+      console.log(11);
     },
     toShare(){
       this.$router.push('/middle');
+      console.log(22);
     },
     toSetting(){
       this.$router.push('/setting');
+      console.log(33);
     }
   }
 };
@@ -187,50 +210,52 @@ export default {
   }
 }
 /*header*/
+span.headmsg{
+  font-family:'冬青黑体';
+  font-size:18px !important;
+}
 .el-row {
   // margin-bottom: 20px;
 }
 .bg-purple-dark {
-  background: #ff9726;
-}
-.bg-purple {
-  background: #ff9726;
-}
-.bg-purple-light {
-  background: #ff9726;
+  background: #1E90FF;
 }
 .grid-content {
   min-height: 36px;
   font-size: 0.35rem;
   color: #fff;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
-.row-bg {
-  padding: 10px 0;
-  background-color: #f9fafc;
+div.grid-content i:nth-child(1){
+  margin-top:-6px;
+}
+div.grid-content i:nth-child(2){
+  margin-top:-18px;
+  font-size:15px;
+}
+.grid-content.user{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  min-height: 36px;
+  color: #fff;
+}
+.grid-content.user i,.grid-content.user span{
+  font-size: 20px;
+}
+.grid-content.user div>span:nth-child(1){
+  margin-right:-8px;
+}
+.grid-content.user div>span:nth-child(2){
+  margin-right:10px;
 }
 
-/*底部样式修改*/
-footer {
-  position: fixed;
-  bottom: 0%;
-  left: 0%;
-  width: 100%;
-  .el-row {
-    margin-bottom: 0px;
-    .grid-content {
-      min-height: 45px;
-      font-size: 0.35rem;
-      margin-top: 50%;
-      i {
-        line-height: 2;
-      }
-    }
-    .grid-content:hover {
-      background: #ffffff;
-      i {
-        color: #ff9726;
-      }
-    }
-  }
+.row-bg {
+  padding: 10px 0;
+  background-color: #1E90FF;
 }
+
 </style>

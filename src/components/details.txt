@@ -1,0 +1,29 @@
+<ul class="ui-list ui-list-link ui-list-single ui-border-tb pa tr t82-3 l50 w102" :class="{showed:busOrInvitation == 1}">
+      <li class="x">
+          <div class="ui-list-info ui-border-t">
+            <h4 class="ui-nowrap h05">
+              <p class="pa tr t20 l15">交易号:{{homeData.data.totalAssets}}
+                <span class="pa tr l400 t50">匹配时间：{{homeData.data.dealArr[0].expireDate | dateFilter}}</span>
+              </p>
+              <p class="pa tr t60 l10">购入</p>
+                <p class="pa tr t50 l26">金额:xx(元)
+                </p>
+                <p class="pa tr t70 l27">数额:XX(台)
+                </p>
+            </h4>
+            <p class="pa tr t66 l80">状态:{{homeData.data.dealArr[0].statusCode}}</p>
+          </div>
+      </li>
+      <li class="x">
+          <div class="ui-list-info ui-border-t h6">
+              <p class="pa tr t20 l18">对方用户:xxxx</p>
+              <p class="pa tr t46 l37">您需要在XXX时间内之前检查收款并为对方确认，超时会被处罚</p>
+              <button class="ui-btn-lg-nowhole ui-btn-primary pa tr t80 l35 br30">查看对方信息</button>
+          </div>
+          <button class="ui-btn-lg-nowhole ui-btn-primary pa tr t30 l88 w20 zIndex">我已付款</button>
+          <button class="ui-btn-lg-nowhole ui-btn-primary pa tr t72 l88 w20 zIndex">投诉对方</button>
+      </li>
+      <li class="csfh">
+        <p class="pa tr t0 l50 csfhA">若超时被投诉成功会导致封号</p>
+      </li>
+    </ul>

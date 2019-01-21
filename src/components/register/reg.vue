@@ -150,7 +150,7 @@ export default {
     },
     getToken() {
       //获取验证码
-      let url = "http://192.168.199.101:3001/getToken";
+      let url = sessionStorage.getItem('serverIp')+"/getToken";
       this.axios
         .get(url)
         .then(res => {
@@ -199,7 +199,7 @@ export default {
       if (this.istype == 1) {
         console.log(this.istype == 1);
         if (this.active++ > 2) this.active = 1;
-        let url = "http://192.168.199.101:3001/reg";
+        let url = sessionStorage.getItem('serverIp')+"/reg";
         this.axios
           .post(url, this.qs.stringify(this.sendData), {
             headers: {
@@ -229,7 +229,7 @@ export default {
           regData.data.invitationCode = this.sendData.data.invitationCode || null;
           regData.data.sixAuthCode = this.sixAuthCode || null;
           console.log(regData);
-          let url = "http://192.168.199.101:3001/regAuth";
+          let url = sessionStorage.getItem('serverIp')+"/regAuth";
           this.axios.post(
             url,
             this.qs.stringify(regData),

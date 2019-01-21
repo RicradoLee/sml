@@ -9,7 +9,7 @@ var app=express();
 
 //解析字符串中间件
 app.use(bodyParser.urlencoded({
-  entended:false
+	extended: false
 }));
 
 //接收来自XX网址的数据请求 解决跨域
