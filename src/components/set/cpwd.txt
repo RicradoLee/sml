@@ -1,0 +1,73 @@
+<el-steps :active="active" simple>
+      <el-step icon="el-icon-edit"></el-step>
+      <el-step icon="el-icon-upload"></el-step>
+      <el-step icon="el-icon-check"></el-step>
+    </el-steps>
+
+    <div class="ui-form ui-border-t" :class="{showed:istype != 0}">
+        <form action="">
+            <div class="ui-form-item ui-form-item-pure ui-border-b">
+                <input type="text" placeholder="手机号" v-model="sendData.data.phone">
+            </div>
+            <div class="ui-form-item ui-form-item-pure ui-border-b">
+                <input type="password" placeholder="密码" v-model="sendData.data.pwd">
+                </a>
+            </div>
+            <div class="ui-form-item ui-form-item-pure ui-border-b">
+                <input type="text" placeholder="验证码" v-model="sendData.data.authToken">
+                <a href="#" @click="getToken">
+                  <span style="text-align:right;">{{getAuthToken}}</span>
+                </a>
+            </div>
+            <div class="ui-form-item ui-form-item-pure ui-border-b">
+                <input type="text" placeholder="邀请码"  v-model="sendData.data.invitationCode">
+            </div>
+        </form>
+    </div>
+
+    <!-- 发送成功 验证验证码 -->
+    <div class="ui-form ui-border-t showed" :class="{showedTwo:istype == 2}">
+        <form action="">
+            <div class="ui-form-item ui-border-b">
+                <label>
+                  验证码
+                </label>
+                <input type="text" placeholder="6位短信验证码" v-model="sixAuthCode">
+                <a href="#" class="ui-icon-close" @click="sixAuthCode=null">
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <!-- 注册成功 -->
+    <div class="ui-dialog ui-dialog-operate" :class="{show:istype == 3}">
+      <div class="ui-dialog-cnt">
+        <div class="ui-dialog-bd">
+          <h3>注册成功</h3>
+          <p>你于{{time | dateFilter}}成功注册成为一名尊贵的吃大饼会员</p>
+        </div>
+        <div class="ui-dialog-ft">
+          <button class="ui-btn-lg" @click="toLogin">立即登录</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="ui-btn-lg ui-btn-primary" @click="next">下一步</button>
+
+
+
+
+    <!-- 前往登陆 -->
+    <button class="returnLogin pa tr b10 l50" type="button" @click="toLogin"></button>
+
+    <!-- 弹窗 -->
+      <div class="ui-dialog" :class="{show:istype == 4}">
+          <div class="ui-dialog-cnt">
+              <div class="ui-dialog-bd">
+                  <p>{{theErrer}}错误</p>
+              </div>
+              <div class="ui-dialog-ft">
+                  <button type="button" data-role="button" @click="">确定</button>
+              </div>
+          </div>
+      </div>  

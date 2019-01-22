@@ -16,6 +16,7 @@
   "dependencies": {
     "async_hooks": "^1.0.0",
     "axios": "^0.18.0",
+    "clipboard": "^2.0.4",
     "cors": "^2.8.5",
     "element-ui": "^2.4.11",
     "jquery": "^2.2.3",
@@ -25,6 +26,7 @@
     "mysql": "^2.16.0",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.4",
+    "vue-clipboard2": "^0.2.1",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },

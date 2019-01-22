@@ -1,12 +1,22 @@
 <template>
   <div class='app-details'>
+    <!--顶部页面提示-->
+    <div class='mui-row detail'>
+      <div class='mui-col-xs-12'>
+          <div class='grid-content bg-purple-dark back'>
+            <span class='arrow' @click='backToOld'></span>
+            <span>订单详情</span>
+          </div>
+      </div>
+    </div>
+
     <div class='up'>
       <div class="mui-row">
         <div class="mui-col-xs-6">
-          <p>交易号:{{homeData.data.totalAssets}}</p>
+          <p class='firstT'>交易号:{{homeData.data.totalAssets}}</p>
         </div>
         <div class="mui-col-xs-6">
-          <p>匹配时间:{{homeData.data.dealArr[0].expireDate | dateFilter}}</p>
+          <p class='secT'>匹配时间:{{homeData.data.dealArr[0].expireDate | dateFilter}}</p>
         </div>
       </div>
     </div>
@@ -14,14 +24,14 @@
     <div class='middle'>
       <div class='mui-row'>
         <div class="mui-col-xs-2">
-          <p>购入</p>
+          <p class='secT' style='color:#0e0;'>购入</p>
         </div>
         <div class="mui-col-xs-6">
-          <p>金额:xx(元)</p>
-          <p>数额:XX(台)</p>
+          <p class='firstT'>金额:xx(元)</p>
+          <p class='firstT'>数额:XX(台)</p>
         </div>
         <div class="mui-col-xs-4">
-          <p>状态:{{homeData.data.dealArr[0].statusCode}}</p>
+          <p class='secT'>状态:{{homeData.data.dealArr[0].statusCode}}</p>
         </div>
       </div>
     </div>
@@ -29,19 +39,19 @@
     <div class='userInfo'>
       <div class='mui-row'>
         <div class="mui-col-xs-9 lDet">
-          <p>对方用户:XXX</p>
-          <p>您需要在XXX时间前为对方付款并提交付款证据，待对方确认后您即可购入成功</p>
+          <p class='firstT'>对方用户:XXX</p>
+          <p class='secT'>您需要在XXX时间前为对方付款并提交付款证据，待对方确认后您即可购入成功</p>
           <router-link to='/orderUserInfo'><button type="button" class="mui-btn mui-btn-primary mui-btn-outlined">查看对方信息</button></router-link>
         </div>
         <div class="mui-col-xs-3 rButton">
-            <button type="button" class="mui-btn mui-btn-success mui-btn-outlined">我已付款</button>
-            <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">投诉对方</button>
+            <router-link to=''><button type="button" class="mui-btn mui-btn-success mui-btn-outlined">我已付款</button></router-link>
+            <router-link to='/complain'><button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">投诉对方</button></router-link>
         </div>
       </div>
     </div>
 
     <div class='infoFoot'>
-      <p>若超时被投诉成功会导致封号</p>
+      <p class='firstT'>若超时被投诉成功会导致封号</p>
     </div>
 
   </div>
@@ -88,7 +98,12 @@ export default {
         }
       }
     }
-  }
+  },
+  methods: {
+    backToOld(){
+      this.$router.go(-1);
+    }
+  },
 }
 </script>
 
@@ -103,8 +118,13 @@ p{
 	flex-direction:column;
 }
 
-.middle,{
+.middle{
   border-bottom:1px solid #000;
+  margin-top:2%;
+}
+.middle .mui-row{
+  margin-bottom:5px;
+  margin-top:5px;
 }
 .middle .mui-col-xs-2{
   display:flex;
@@ -142,5 +162,41 @@ p{
 .infoFoot{
   margin-top:10px;
   border:1px solid #000;
+}
+
+.detail .arrow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.detail .arrow::after{
+  content:'';
+  width:15px;
+  height:15px;
+  border-top:3px solid #ccc;
+  border-right:3px solid #ccc;
+  transform:rotate(225deg);
+}
+.detail .back{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:start;
+  width:100%;
+}
+.detail .back span:nth-child(1){
+  margin-left:5%;
+}
+.detail .back span:nth-child(2){
+  margin:0 auto !important;
+}
+
+.app-details .firstT{
+  font-size:21px;
+  color:#000;
+}
+.app-details .secT{
+  color:#000;
+  font-size:14px;
 }
 </style>

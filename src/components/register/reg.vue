@@ -1,47 +1,51 @@
 <template>
   <div id="app-reg">
-    <el-steps :active="active" simple>
-      <el-step icon="el-icon-edit"></el-step>
-      <el-step icon="el-icon-upload"></el-step>
-      <el-step icon="el-icon-check"></el-step>
-    </el-steps>
 
-    <div class="ui-form ui-border-t" :class="{showed:istype != 0}">
-        <form action="">
-            <div class="ui-form-item ui-form-item-pure ui-border-b">
-                <input type="text" placeholder="手机号" v-model="sendData.data.phone">
-                <a href="#" class="ui-icon-close" @click="clearPhone"></a>
-            </div>
-            <div class="ui-form-item ui-form-item-pure ui-border-b">
-                <input type="password" placeholder="密码" v-model="sendData.data.pwd">
-                <a href="#" class="ui-icon-close" @click="clearPwd">
-                </a>
-            </div>
-            <div class="ui-form-item ui-form-item-pure ui-border-b">
-                <input type="text" placeholder="验证码" v-model="sendData.data.authToken">
-                <a href="#" @click="getToken">
-                  <span style="text-align:right;">{{getAuthToken}}</span>
-                </a>
-            </div>
-            <div class="ui-form-item ui-form-item-pure ui-border-b">
-                <input type="text" placeholder="邀请码"  v-model="sendData.data.invitationCode">
-                <a href="#" class="ui-icon-close"  @click="clearInvitationCode"></a>
-            </div>
+    <div class='title'>
+      <div>
+        <h3>注册</h3>
+      </div>
+
+      <div class='mui-row' :class="{showed:istype != 0}">
+        <form class="mui-input-group info">
+          <div class="mui-input-row">
+              <label>手机号</label>
+              <input type="text" class="mui-input-clear" placeholder="请输入手机号" v-model="sendData.data.phone">
+          </div>
+          <div class="mui-input-row">
+              <label>密码</label>
+              <input type="password" class="mui-input-clear" placeholder="请输入密码" v-model="sendData.data.pwd">
+          </div>
+
+          <div class="mui-input-row">
+              <label>验证码</label>
+              <input id='test' type="text" class="mui-input-clear" placeholder="请输入验证码" v-model="sendData.data.authToken">
+              <a href="#" @click="getToken" id='token'>
+                <span style="text-align:right;">{{getAuthToken}}</span>
+              </a>
+          </div>
+          <div class="mui-input-row">
+              <label>邀请码</label>
+              <input type="text" class="mui-input-clear" placeholder="请输入邀请码 可不填" v-model="sendData.data.invitationCode">
+          </div>
         </form>
+      </div>
+
+      <div class='mui-row sub'>
+        <button type="button" class="mui-btn mui-btn-primary" @click='next'>提交</button>
+      </div>
     </div>
 
-    <!-- 发送成功 验证验证码 -->
-    <div class="ui-form ui-border-t showed" :class="{showedTwo:istype == 2}">
-        <form action="">
-            <div class="ui-form-item ui-border-b">
-                <label>
-                  验证码
-                </label>
-                <input type="text" placeholder="6位短信验证码" v-model="sixAuthCode">
-                <a href="#" class="ui-icon-close" @click="sixAuthCode=null">
-                </a>
+    <!-- 错误弹窗 -->
+    <div class="ui-dialog" :class="{show:istype == 4}">
+        <div class="ui-dialog-cnt">
+            <div class="ui-dialog-bd">
+                <p>{{theErrer}}错误</p>
             </div>
-        </form>
+            <div class="ui-dialog-ft">
+                <button type="button" data-role="button" @click="clearIsType">确定</button>
+            </div>
+        </div>
     </div>
 
     <!-- 注册成功 -->
@@ -52,32 +56,11 @@
           <p>你于{{time | dateFilter}}成功注册成为一名尊贵的吃大饼会员</p>
         </div>
         <div class="ui-dialog-ft">
-          <button class="ui-btn-lg" @click="toLogin">立即登录</button>
+          <router-link to='/login'><button class="ui-btn-lg" @click="toLogin">立即登录</button></router-link>
         </div>
       </div>
     </div>
 
-    <button class="ui-btn-lg ui-btn-primary" @click="next">下一步</button>
-
-
-
-
-    <!-- 前往登陆 -->
-    <button class="returnLogin pa tr b10 l50" type="button" @click="toLogin"></button>
-
-
-
-    <!-- 弹窗 -->
-      <div class="ui-dialog" :class="{show:istype == 4}">
-          <div class="ui-dialog-cnt">
-              <div class="ui-dialog-bd">
-                  <p>{{theErrer}}错误</p>
-              </div>
-              <div class="ui-dialog-ft">
-                  <button type="button" data-role="button" @click="clearIsType">确定</button>
-              </div>
-          </div>
-      </div>
   </div>
 </template>
 <script>
@@ -86,7 +69,7 @@ export default {
     return {
       time:new Date(),
       authNote:'sdafasfasfsdf',
-      sixAuthCode: null,
+      //sixAuthCode: null,
       istype:0,
       active: 1,
       getAuthToken: 4835,
@@ -108,6 +91,9 @@ export default {
   },
   watch: {},
   methods: {
+    clearIsType(){
+      this.istype = 0;
+    },
     toLogin(){
       this.$router.push('/login');
     }/*,
@@ -161,41 +147,30 @@ export default {
           console.log(error);
         });
     },
-    clearIsType(){
-      this.istype = 0;
-    },
-    clearInvitationCode() {
-      this.sendData.data.invitationCode = null;
-    },
-    clearPhone() {
-      this.sendData.data.phone = null;
-    },
-    clearPwd() {
-      this.sendData.data.pwd = null;
-    },
     next() {
-
+      //验证电话号码
       let reg1 = /^1[3-8]\d{9}$/;
       if (!reg1.test(this.sendData.data.phone)) {
         this.theErrerPho();
         return;
       }
-      
+      //验证密码
       let reg2 = /^\w{8,15}$/;
       if (!reg2.test(this.sendData.data.pwd)) {
         this.theErrerPwd();
         return;
       }
-
+      //验证随机验证码
       if (this.sendData.data.authToken != this.getAuthToken) {
         this.theErrerAuth();
         return;
       }
-      
+
       if(this.sendData.data.authToken == this.getAuthToken && reg1.test(this.sendData.data.phone) && reg2.test(this.sendData.data.pwd) && this.istype == 0){
         this.istype=1;
       }
 
+      //获取验证码
       if (this.istype == 1) {
         console.log(this.istype == 1);
         if (this.active++ > 2) this.active = 1;
@@ -219,7 +194,7 @@ export default {
       // this.type=2;
       if (this.istype=2) {
         //console.log(this.authNote == this.sixAuthCode);
-        if(this.authNote == this.sixAuthCode){
+        //if(this.authNote == this.sixAuthCode){
           if (this.active++ > 2) this.active = 1;
           let regData = {};
           regData.type = 102;
@@ -245,27 +220,21 @@ export default {
               this.istype=3;
             }
           });
-        } 
+        //} 
       }
     }
   }
 };
 </script>
 <style lang="less">
-@thisRem: 0.1rem;
-#app-reg {
-  width: 100%;
-  font-size: @thisRem;
-  .el-steps--simple {
-    border-radius: 0px;
-    background: #ffffff;
-  }
-  .showed {
-    display: none;
-  }
-  .showedTwo{
-    display: block;
-  }
+.title{
+  margin-top:38%;
+  background-color:#fff;
+  padding:5% 3%;
+}
+#app-reg{
+  background: url(/static/bg.jpg) no-repeat;
+  background-size: 100% 100%;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -275,26 +244,20 @@ export default {
   -webkit-box-orient: horizontal;
   -webkit-box-pack: center;
   -webkit-box-align: center;
-  background: url('/static/bg.jpg') no-repeat;
-  background-size: 100% 100%;
+}
+#token{
+  position:absolute;
+  top:8px;
+  left:307px;
+}
+.info{
+  background:none;
+}
+.sub button{
+  width:100%;
+}
+
+.show{
   display: block;
-  .ui-dialog-close {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    width: 40px;
-    height: 40px;
-    margin-left: -20px;
-  }
-  .returnLogin{
-    width: 48px;
-    height: 48px;
-    background: url('/static/img/@3x/fx.png') no-repeat;
-    background-size: 48px 48px;
-    background-position: 0px 0px;
-    border: 3px solid #fff;
-    border-radius: 50%;
-    z-index: 9999;
-  }
 }
 </style>

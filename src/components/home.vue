@@ -1,5 +1,22 @@
 <template>
    <div class='app-index'>
+      <!--顶部状态栏-->
+      <el-row>
+        <el-col :span="24" class="w103" v-if='!uInfo'>
+          <div class="grid-content bg-purple-dark">
+          首页
+          </div>
+        </el-col>
+        <el-col :span="24" class="w103" v-else>
+          <div class="grid-content bg-purple-dark user">
+            <span class='headmsg'>{{uname}}用户名占位符</span>
+            <div>
+              <span class='headmsg'>退出登录</span>
+              <span class='el-icon-circle-close headmsg'></span>
+            </div>
+          </div>
+        </el-col>
+      </el-row>
       <!--顶部资产信息面板-->
       <div class='mInfo'>
         <!--内层-->
@@ -31,7 +48,7 @@
       </div>
 
       <!--中部-->
-      <div>
+      <div class='asset'>
         <div @click="toBuy">
           <mt-cell title='购入资产' icon='more'>
             <img slot="icon" src="../../static/img/@3x/mczc.png" width="24" height="24">
@@ -154,8 +171,6 @@
             <div style='height:200px;'></div>
           </mt-tab-container-item>
         </mt-tab-container>
-      
-      
    </div>   
 </template>
 <script>
@@ -167,6 +182,8 @@ export default {
       busOrInvitation:0,
       selected:'1',
       loginData:this.$store.state.loginData,
+      uInfo:false,//判断是否有用户信息
+      uname:'',
       homeData:{
         type:301,
         data:{
@@ -203,7 +220,16 @@ export default {
       }
     };
   },created(){
+    sessionStorage.setItem('serverIp','http://172.163.8.212:3001');//设置全局IP
+
     this.getHomeData();
+    
+    if(sessionStorage.getItem('uname'))
+    {
+      this.uInfo=true;
+      this.uname=sessionStorage.getItem('uname');
+    }
+
   },
   methods:{
     jumpToDet(){
@@ -293,12 +319,12 @@ div.mInfo{
   justify-content:start;
   align-items:center;
 }
-.arrow{
+.asset .arrow{
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
-.arrow::after{
+.asset .arrow::after{
   content:'';
   width:15px;
   height:15px;
@@ -344,11 +370,11 @@ ul.checked{
   justify-content:space-between;
   align-items:center;
 }
-.firstT{
+.app-index .firstT{
   font-size:21px;
   color:#000;
 }
-.secT{
+.app-index .secT{
   color:gray;
   font-size:14px;
 }

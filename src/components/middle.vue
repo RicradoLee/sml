@@ -1,5 +1,13 @@
 <template>
     <div class="appMiddle">
+				<!--顶部页面提示-->
+				<div class='mui-row asset'>
+					<div class='mui-col-xs-12'>
+							<div class='grid-content bg-purple-dark back'>
+								<span>申购资产</span>
+							</div>
+					</div>
+				</div>
         <!-- 运行状态 -->
         <div>
 					<ul class='myState'>
@@ -20,7 +28,7 @@
 				</div>
 
 				<!--中间收益选项-->
-				<div>
+			<div class='income'>
         <div>
           <mt-cell title='收益兑换'>
             <div class='arrow'></div>
@@ -113,7 +121,7 @@ ul{
 
 .myState{
 	margin-top:5%;
-	margin-left:-40%;
+	margin-left:-1%;
 }
 .myState p{
 	color:#f00;
@@ -195,5 +203,29 @@ ul{
 }
 .downTime p:nth-child(2){
 	margin-right:7%;
+}
+
+.income .arrow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.income .arrow::after{
+  content:'';
+  width:15px;
+  height:15px;
+  border-top:3px solid #ccc;
+  border-right:3px solid #ccc;
+  transform:rotate(45deg);
+}
+.asset .back{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:start;
+  width:100%;
+}
+.asset .back span:nth-child(1){
+  margin:0 auto;
 }
 </style>

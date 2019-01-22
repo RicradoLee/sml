@@ -46,7 +46,6 @@
       </div>
     </div>
 
-
     <!-- 服务条款 -->
     <div class="ui-dialog ui-dialog-operate" :class="{show:pageNum == 10}">
       <div class="ui-dialog-cnt">
@@ -342,8 +341,9 @@ export default {
           }
         )
         .then((res)=>{
-          console.log(res.data);
+          
           if(res.data.data.msg == "successed" && res.data.type == 201){
+              sessionStorage.setItem('uPhone',this.loginData.data.user);//登陆成功之后将电话存入全局变量
               this.$router.push('/index');
               this.$store.state.loginData = res.data;
           }
@@ -390,6 +390,7 @@ export default {
     transform: translate(-50%, -50%);
     color: #000000;
     .f-white {
+      margin-top:-41px;
       .f-blue {
         color: red;
       }

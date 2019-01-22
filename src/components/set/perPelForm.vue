@@ -1,7 +1,15 @@
 <template>
-    <div class="cPwd">
+    <div class="app-cPwd">
+        <!--顶部页面提示-->
+        <div class='mui-row cCode'>
+            <div class='mui-col-xs-12'>
+                <div class='grid-content bg-purple-dark back'>
+                    <span class='arrow' @click='backToOld'></span>
+                    <span>修改个人信息</span>
+                </div>
+            </div>
+        </div>
         <!-- 个人信息 -->
-
         <div class="ui-form ui-border-t">
             <form action="">
                 <div class="ui-form-item  ui-border-b">
@@ -40,14 +48,6 @@
                     </label>
                     <p style="margin-left:10px;">{{perForm.data.email}}</p>
                 </div>
-
-                <!-- 修改 -->
-                <!-- <div class="ui-btn-wrap">
-                    <button class="ui-btn-lg ui-btn-primary">
-                        修改
-                    </button>
-                </div> -->
-
             </form>
         </div>
 
@@ -77,6 +77,9 @@ export default {
   created() {},
   watch: {},
   methods: {
+    backToOld(){
+        this.$router.go(-1);
+    },
     cEmail() {
       this.$router.push("/setting/cemail");
     },
@@ -114,4 +117,31 @@ export default {
 };
 </script>
 <style lang="less">
+.cCode .arrow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.cCode .arrow::after{
+  content:'';
+  width:15px;
+  height:15px;
+  border-top:3px solid #ccc;
+  border-right:3px solid #ccc;
+  transform:rotate(225deg);
+}
+.cCode .back{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:start;
+  width:100%;
+}
+.cCode .back span:nth-child(1){
+  margin-left:5%;
+}
+.cCode .back span:nth-child(2){
+  margin:0 auto !important;
+}
+
 </style>

@@ -10,6 +10,8 @@ import store from './vuex/store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+import VueClipboards from '../node_modules/vue-clipboard2/vue-clipboard.js'
+
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 
@@ -30,6 +32,7 @@ Vue.prototype.qs = Qs
 
 Vue.use(ElementUI)
 Vue.use(MintUI)
+Vue.use(VueClipboards)
 
 //跨域保存session值
 axios.defaults.withCredentials = true;

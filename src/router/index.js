@@ -8,6 +8,7 @@ import setting from '@/components/setting'
 import middle from '@/components/middle'
 import details from '@/components/details'
 import orderUserInfo from '@/components/orderUserInfo'
+import complain from '@/components/complain'
 
 import sale from '@/components/sale'
 import buy from '@/components/buy'
@@ -46,6 +47,11 @@ export default new Router({
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
+    },
+    {
+      path:'/complain',
+      name:'complain',
+      component:complain
     },
     {
       path:'/orderUserInfo',

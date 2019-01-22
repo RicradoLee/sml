@@ -1,41 +1,32 @@
 <template>
-    <div class="cPwd">
-        <!-- 修改密码 -->
-
-        <div class="ui-form ui-border-t">
-            <form action="">
-                <div class="ui-form-item ui-border-b">
-                    <label>
-                        旧密码
-                    </label>
-                    <input type="password" placeholder="旧密码" v-model="cPwd.data.pastPwd">
-                    <a href="#" class="ui-icon-close" @click="clearPastPwd">
-                    </a>
+    <div class="app-cPwd">
+        <!--顶部页面提示-->
+        <div class='mui-row cpwd'>
+            <div class='mui-col-xs-12'>
+                <div class='grid-content bg-purple-dark back'>
+                    <span class='arrow' @click='backToOld'></span>
+                    <span>修改密码</span>
                 </div>
-                <div class="ui-form-item ui-border-b">
-                    <label>
-                        新密码
-                    </label>
-                    <input type="password" placeholder="8-15位新密码" v-model="cPwd.data.newPwd">
-                    <a href="#" class="ui-icon-close" @click="clearNewPwd">
-                    </a>
-                </div>
-                <div class="ui-form-item ui-border-b">
-                    <label>
-                        重复密码
-                    </label>
-                    <input type="password" placeholder="再一次密码" v-model="againPwd">
-                    <a href="#" class="ui-icon-close" @click="clearAgainPwd">
-                    </a>
-                </div>
-                <div class="ui-btn-wrap">
-                    <button class="ui-btn-lg ui-btn-primary" @click="checkAndSendMsg">
-                        确定
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
-
+        <!-- 修改密码 -->
+        <form class="mui-input-group" style='background-color:#efeff4;'>
+            <div class="mui-input-row">
+              <label>旧密码</label>
+            	<input type="text" class="mui-input-clear" placeholder="请输入旧密码" v-model="cPwd.data.pastPwd">
+            </div>
+						<div class="mui-input-row">
+              <label>新密码</label>
+            	<input type="text" class="mui-input-clear" placeholder="请输入8-15位新密码" v-model="cPwd.data.newPwd">
+            </div>
+						<div class="mui-input-row">
+              <label>确认密码</label>
+            	<input type="text" class="mui-input-clear" placeholder="请再次输入新密码" v-model="againPwd" @blur='checkPwd'>
+            </div>
+						<div class="mui-button-row">
+			        <button type="button" class="mui-btn mui-btn-primary" @click="checkAndSendMsg">确认</button>
+    				</div>
+        </form>
 
     </div>
 </template>
@@ -61,6 +52,9 @@ export default {
     // againPwd: "checkPwd"
   },
   methods: {
+		backToOld(){
+			this.$router.go(-1);
+		},
     checkAndSendMsg() {
         if(this.againPwd != this.cPwd.data.newPwd){
             Toast(`两次密码输入不同`);
@@ -88,21 +82,42 @@ export default {
         }
     },
     checkPwd(curVal, oldVal) {
-      if (curVal != oldVal) {
+      if (this.againPwd != this.cPwd.data.newPwd) {
         Toast("两次密码输入不同");
       }
-    },
-    clearPastPwd() {
-      this.cPwd.data.pastPwd = null;
-    },
-    clearNewPwd() {
-      this.cPwd.data.newPwd = null;
-    },
-    clearAgainPwd() {
-      this.againPwd = null;
     }
   }
 };
 </script>
 <style lang="less">
+.cpwd .arrow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.cpwd .arrow::after{
+  content:'';
+  width:15px;
+  height:15px;
+  border-top:3px solid #ccc;
+  border-right:3px solid #ccc;
+  transform:rotate(225deg);
+}
+.cpwd .back{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:start;
+  width:100%;
+}
+.cpwd .back span:nth-child(1){
+  margin-left:5%;
+}
+.cpwd .back span:nth-child(2){
+  margin:0 auto !important;
+}
+
+form div:last-child button{
+	width:100%;
+}
 </style>

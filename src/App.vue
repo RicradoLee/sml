@@ -1,22 +1,7 @@
 <template>
   <div id="app">
     <!-- 顶部导航栏 -->
-    <el-row>
-      <el-col :span="24" class="w103" v-if='!uInfo'>
-        <div class="grid-content bg-purple-dark">
-         首页
-        </div>
-      </el-col>
-      <el-col :span="24" class="w103" v-else>
-        <div class="grid-content bg-purple-dark user">
-          <span class='headmsg'>{{uname}}用户名占位符</span>
-          <div>
-            <span class='headmsg'>退出登录</span>
-            <span class='el-icon-circle-close headmsg'></span>
-          </div>
-        </div>
-      </el-col>
-    </el-row>
+    
     <router-view/>
     <!-- 底部导航栏 -->
     <footer>
@@ -26,7 +11,7 @@
 				<span class="mui-tab-label">首页</span>
 			</router-link>
 			<router-link class="mui-tab-item" to="/middle"  >
-				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge"></span></span>
+				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">0</span></span>
 				<span class="mui-tab-label">申资</span>
 			</router-link>
 			<router-link class="mui-tab-item" to="/setting">
@@ -48,19 +33,12 @@ export default {
     return {
       screenWidth: window.innerWidth, //屏幕宽度
       screenHeight: window.innerHeight, // 屏幕尺寸
-      uInfo:false,//用户信息
-      uname:''
     };
   },
   created() {
     this.isCrosswise();
   },
   mounted() {
-    if(sessionStorage.getItem('uname'))
-    {
-      this.uInfo=true;
-      this.uname=sessionStorage.getItem('uname');
-    }
 
     const that = this;
 

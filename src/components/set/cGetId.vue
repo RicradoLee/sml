@@ -1,41 +1,32 @@
 <template>
-    <div class="cGetId">
-        <!-- 修改收款账号 -->
-
-        <div class="ui-form ui-border-t">
-            <form action="">
-                <div class="ui-form-item ui-border-b">
-                    <label>
-                        手机号
-                    </label>
-                    <input type="password" placeholder="手机号" v-model="cGetId.data.phone">
-                    <a href="#" class="ui-icon-close" @click="clearPhone">
-                    </a>
+    <div class="app-cGetId">
+      <!--顶部页面提示-->
+        <div class='mui-row cId'>
+            <div class='mui-col-xs-12'>
+                <div class='grid-content bg-purple-dark back'>
+                    <span class='arrow' @click='backToOld'></span>
+                    <span>修改收款账号</span>
                 </div>
-                <div class="ui-form-item ui-border-b">
-                    <label>
-                        验证码
-                    </label>
-                    <input type="password" placeholder="6位验证码" v-model="cGetId.data.authToken">
-                    <a href="#" class="ui-icon-close" @click="clearAuth">
-                    </a>
-                </div>
-                <div class="ui-form-item ui-border-b">
-                    <label>
-                        新收款账号
-                    </label>
-                    <input type="password" placeholder="新收款账号" v-model="cGetId.data.newGetId">
-                    <a href="#" class="ui-icon-close" @click="clearGetId">
-                    </a>
-                </div>
-                <div class="ui-btn-wrap">
-                    <button class="ui-btn-lg ui-btn-primary" @click="checkAndSend">
-                        修改
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
-
+        <!-- 修改收款账号 -->
+        <form class="mui-input-group" style='background-color:#efeff4;'>
+            <div class="mui-input-row">
+              <label>手机号</label>
+            	<input type="text" class="mui-input-clear" placeholder="请输入手机号" v-model="cGetId.data.phone">
+            </div>
+						<div class="mui-input-row">
+              <label>验证码</label>
+            	<input type="text" class="mui-input-clear" placeholder="请输入6位验证码" v-model="cGetId.data.authToken">
+            </div>
+						<div class="mui-input-row">
+              <label>新收款账号</label>
+            	<input type="text" class="mui-input-clear" placeholder="请输入新收款账号" v-model="cGetId.data.newGetId">
+            </div>
+						<div class="mui-button-row">
+			        <button type="button" class="mui-btn mui-btn-primary" @click="checkAndSend">确认</button>
+    				</div>
+        </form>
 
     </div>
 </template>
@@ -81,17 +72,40 @@ export default {
             }
         }); 
     },
-    clearPhone() {
-      this.cGetId.data.phone = null;
-    },
-    clearAuth() {
-      this.cGetId.data.authToken = null;
-    },
-    clearGetId() {
-      this.cGetId.data.newGetId = null;
-    }
+		backToOld(){
+			this.$router.go(-1);
+		},
   }
 };
 </script>
 <style lang="less">
+.cId .arrow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.cId .arrow::after{
+  content:'';
+  width:15px;
+  height:15px;
+  border-top:3px solid #ccc;
+  border-right:3px solid #ccc;
+  transform:rotate(225deg);
+}
+.cId .back{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:start;
+  width:100%;
+}
+.cId .back span:nth-child(1){
+  margin-left:5%;
+}
+.cId .back span:nth-child(2){
+  margin:0 auto !important;
+}
+form div:last-child button{
+	width:100%;
+}
 </style>

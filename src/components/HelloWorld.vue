@@ -14,7 +14,7 @@ export default {
     }
   },
   mounted() {
-    sessionStorage.setItem('serverIp','http://172.163.8.212:3001');
+    sessionStorage.setItem('serverIp','http://172.163.8.212:3001');//设置全局IP
   }
 }
 </script>

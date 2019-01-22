@@ -1,42 +1,32 @@
 <template>
-    <div class="cSafeCode">
-        <!-- 修改安全码-->
-
-        <div class="ui-form ui-border-t">
-            <form action="">
-                <div class="ui-form-item ui-border-b">
-                    <label>
-                        旧安全码
-                    </label>
-                    <input type="password" placeholder="旧安全码(若无，可不填)" v-model="cSafePwd.data.pastSafePwd">
-                    <a href="#" class="ui-icon-close" @click="clearPastPwd">
-                    </a>
+    <div class="app-cSafeCode">
+        <!--顶部页面提示-->
+        <div class='mui-row cCode'>
+            <div class='mui-col-xs-12'>
+                <div class='grid-content bg-purple-dark back'>
+                    <span class='arrow' @click='backToOld'></span>
+                    <span>修改密码</span>
                 </div>
-                <div class="ui-form-item ui-border-b">
-                    <label>
-                        新安全码
-                    </label>
-                    <input type="password" placeholder="6位新安全码" v-model="cSafePwd.data.newSafePwd">
-                    <a href="#" class="ui-icon-close" @click="clearNewPwd">
-                    </a>
-                </div>
-                <div class="ui-form-item ui-border-b">
-                    <label>
-                        重复密码
-                    </label>
-                    <input type="password" placeholder="再一次安全码" v-model="againSafePwd">
-                    <a href="#" class="ui-icon-close" @click="clearAgainPwd">
-                    </a>
-                </div>
-                <div class="ui-btn-wrap">
-                    <button class="ui-btn-lg ui-btn-primary" @click="checkAndSendMsg">
-                        确定
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
-
-
+        <!-- 修改安全码-->
+        <form class="mui-input-group" style='background-color:#efeff4;'>
+            <div class="mui-input-row">
+              <label>旧安全码</label>
+            	<input type="text" class="mui-input-clear" placeholder="请输入旧安全码 若无 可不填" v-model="cSafePwd.data.pastSafePwd">
+            </div>
+						<div class="mui-input-row">
+              <label>新安全码</label>
+            	<input type="text" class="mui-input-clear" placeholder="请输入6位新安全码" v-model="cSafePwd.data.newSafePwd">
+            </div>
+						<div class="mui-input-row">
+              <label>确认安全码</label>
+            	<input type="text" class="mui-input-clear" placeholder="请再次输入新安全码" v-model="againSafePwd" @blur='checkSafeCode'>
+            </div>
+						<div class="mui-button-row">
+			        <button type="button" class="mui-btn mui-btn-primary" @click="checkAndSendMsg">确认</button>
+    				</div>
+        </form>
     </div>
 </template>
 <script>
@@ -59,6 +49,9 @@ export default {
   created() {},
   watch: {},
   methods: {
+		backToOld(){
+			this.$router.go(-1);
+		},
     checkAndSendMsg() {
       if (this.againSafePwd != this.cSafePwd.data.newSafePwd) {
         Toast(`两次安全码输入不同`);
@@ -82,17 +75,43 @@ export default {
           });
       }
     },
-    clearPastPwd() {
-      this.cPwd.data.pastPwd = null;
-    },
-    clearNewPwd() {
-      this.cPwd.data.newPwd = null;
-    },
-    clearAgainPwd() {
-      this.againPwd = null;
+    checkSafeCode(){
+      if (this.againSafePwd != this.cSafePwd.data.newSafePwd) {
+        Toast(`两次安全码输入不同`);
+      }
     }
   }
 };
 </script>
 <style lang="less">
+.cCode .arrow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.cCode .arrow::after{
+  content:'';
+  width:15px;
+  height:15px;
+  border-top:3px solid #ccc;
+  border-right:3px solid #ccc;
+  transform:rotate(225deg);
+}
+.cCode .back{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:start;
+  width:100%;
+}
+.cCode .back span:nth-child(1){
+  margin-left:5%;
+}
+.cCode .back span:nth-child(2){
+  margin:0 auto !important;
+}
+
+form div:last-child button{
+	width:100%;
+}
 </style>

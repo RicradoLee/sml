@@ -1,12 +1,24 @@
 <template>
     <div class="appSetting">
+        <!--顶部页面提示-->
+        <div class='mui-row mySelf'>
+            <div class='mui-col-xs-12'>
+                <div class='grid-content bg-purple-dark back'>
+                    <span class='arrow'></span>
+                    <span>个人中心</span>
+                </div>
+            </div>
+        </div>
+
+
         <header class="w100">
             <img src="static/img/@3x/$.png">
+            <p v-if='!uPhone'><span><router-link to='/login'>请登录</router-link></span>/<span><router-link to='/reg'>注册</router-link></span></p>
+            <p v-else>{{uPhone}}<span @click='logOut'>&nbsp;&nbsp;&nbsp;&nbsp;退出登录</span></p>
         </header>
             <ul class="ui-list ui-list-link ui-list-single ui-border-tb mt40">
                 <li>
                     <div class="ui-avatar-s xgmm">
-                        
                     </div>
                     <div class="ui-list-info ui-border-t" @click="cPwd">
                         <h4 class="ui-nowrap" >修改个人密码</h4>
@@ -23,7 +35,7 @@
                     <div class="ui-avatar-s wsgrxx">
                     </div>
                     <div class="ui-list-info ui-border-t" @click="perPelForm">
-                        <h4 class="ui-nowrap" >完善个人信息</h4>
+                        <h4 class="ui-nowrap" >修改个人信息</h4>
                     </div>
                 </li>
             </ul>
@@ -67,49 +79,116 @@
                 </li>
             </ul>
 
-
-        
     </div>
 </template>
 <script>
 export default {
   name: "appSetting",
   data() {
-    return {}
+    return {
+			uPhone:''
+		}
   },
+	created() {
+		if(sessionStorage.getItem('uPhone'))
+        {
+            this.uInfo=true;
+            this.uPhone=sessionStorage.getItem('uPhone');
+        }
+	},
   methods: {
+    logOut(){
+        sessionStorage.removeItem('uPhone');//清除用户信息
+        history.go(0);
+    },
+    judge(){
+      if(!sessionStorage.getItem('uPhone'))
+      {
+        alert('还未登录 请先登录', 'Hello MUI');
+        return false;
+      }
+      else
+      {
+          return true;
+      }
+    },
     cPwd(){
-      this.$router.push('/setting/cPwd');
+      if(this.judge())
+      {
+        this.$router.push('/setting/cPwd');
+      }
     },
     cSafeCode(){
-      this.$router.push('/setting/cSafeCode');
+      if(this.judge())
+      {
+        this.$router.push('/setting/cSafeCode');
+      }
     },
     perPelForm(){
-      this.$router.push('/setting/perPelForm');
+      if(this.judge())
+      {
+        this.$router.push('/setting/perPelForm');
+      }
     },
     cGetId(){
-      this.$router.push('/setting/cGetId');
+      if(this.judge())
+      {
+        this.$router.push('/setting/cGetId');
+      }
     },
     myInvCode(){
-      this.$router.push('/setting/myInvCode');
+      if(this.judge())
+      {
+        this.$router.push('/setting/myInvCode');
+      }
     },
     mySup(){
-      this.$router.push('/setting/mySup');
+      if(this.judge())
+      {
+        this.$router.push('/setting/mySup');
+      }
     },
     myTeam(){
-      this.$router.push('/setting/myTeam');
+      if(this.judge())
+      {
+        this.$router.push('/setting/myTeam');
+      }
     },
     aboutUs(){
-      this.$router.push('/setting/aboutUs');
+      if(this.judge())
+      {
+        this.$router.push('/setting/aboutUs');
+      }
     }
   }
 };
 </script>
 <style lang="less">
+.compl .arrow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.compl .arrow::after{
+  content:'';
+  width:15px;
+  height:15px;
+  border-top:3px solid #ccc;
+  border-right:3px solid #ccc;
+  transform:rotate(225deg);
+}
 header{
     margin-top: -20px;
-    height: 1.1rem;
-    background: #ff9726;
+    height: 1.9rem;
+    background: #1E90FF;
+}
+header img{
+	border-radius:50%;
+}
+header p,header a{
+	color:#000;
+	font-size:20px;
+	font-family:'冬青';
 }
 .ui-list li h4 {
     color: #000;

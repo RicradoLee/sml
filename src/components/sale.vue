@@ -1,11 +1,18 @@
 <template>
-    <div class="appSale">
-        <!-- <h1>购入资产</h1> -->
+    <div class="app-Sale">
+        <!--顶部状态栏-->
+        <div class='mui-row sale'>
+            <div class='mui-col-xs-12'>
+                <div class='grid-content bg-purple-dark back'>
+                    <span class='arrow' @click='backToOld'></span>
+                    <span>卖出服务器</span>
+                </div>
+            </div>
+        </div>
         <!-- tbody -->
         <tbody>
             <div  class="tbody pa tr t42 l50">
-                <p class="pa tr t5 l50 grfwq">卖出服务器</p>
-                <img src="static/img/@3x/server.png" class="pa tr t25 l25">
+                <img src="static/img/@3x/$.png" class="pa tr t25 l25">
                 <p class="pa tr t20 l70">名称：XXXXX</p>
                 <p class="pa tr t25 l70">描述：XXXX</p>
                 <p class="pa tr t75 l70">数量：
@@ -27,6 +34,9 @@ export default {
         }
     },
     methods:{
+        backToOld(){
+            this.$router.go(-1);
+        },
         addNum(){
             this.num++;
         },
@@ -39,16 +49,42 @@ export default {
 }
 </script>
 <style lang="less">
-    tbody{
-        .tbody{
-            .a-btn{
-                text-decoration: none;
-                color: rgb(255, 0, 0);
-                font-size: 0.25rem;
-                width: 4px;
-                height: 4px;
-                border: 1px solid #000;
-            }
+tbody{
+    .tbody{
+        .a-btn{
+            text-decoration: none;
+            color: rgb(255, 0, 0);
+            font-size: 0.25rem;
+            width: 4px;
+            height: 4px;
+            border: 1px solid #000;
         }
     }
+}
+.sale .arrow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.sale .arrow::after{
+  content:'';
+  width:15px;
+  height:15px;
+  border-top:3px solid #ccc;
+  border-right:3px solid #ccc;
+  transform:rotate(225deg);
+}
+.sale .back{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:start;
+  width:100%;
+}
+.sale .back span:nth-child(1){
+  margin-left:3%;
+}
+.sale .back span:nth-child(2){
+  margin:0 auto !important;
+}
 </style>
