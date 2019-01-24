@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <ul class='complInfo' v-if='!complain'>
+    <ul class='complInfo' v-if='complain'>
       <li>
         <p class='firstT'>交易号:xxxxxxxxxx</p>
       </li>
@@ -62,7 +62,7 @@
         </form>
       </li>
       <li>
-        <button type="button" class="mui-btn mui-btn-primary">确认</button>
+        <button type="button" class="mui-btn mui-btn-primary" @click='Complain'>确认</button>
       </li>
     </ul>
 
@@ -79,16 +79,24 @@ export default{
     }
   },
   methods: {
+    Complain(){
+      sessionStorage.setItem('complain','true');
+    },
     backToOld(){
       this.$router.go(-1);
     }
   },
   created() {
-    if(sessionStorage.getItem('complain'))//若获取不到投诉信息 即第一次进入 否则加载二次页面
+    if(!sessionStorage.getItem('complain'))//若获取不到投诉信息 即第一次进入 否则加载二次页面
     {
       this.complain=true;
     }
-  },
+    else
+    {
+      this.complain=false;
+      this.$router.push('/tradeDispute');
+    }
+  }
 }
 </script>
 

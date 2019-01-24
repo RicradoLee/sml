@@ -1,48 +1,74 @@
 <template>
-    <div class="appTrade">
+    <div class="app-trade">
+		<!--顶部页面提示-->
+    <div class='mui-row trade'>
+      <div class='mui-col-xs-12'>
+          <div class='grid-content bg-purple-dark back'>
+            <span class='arrow' @click='backToOld'></span>
+            <span>交易纠纷</span>
+          </div>
+      </div>
+    </div>
 
-        <!-- <h1>交易纠纷</h1> -->
-        <div class="header">
-            <p class="pa t10 l10">交易号：{{busId}}</p>
-            <p class="pa t15 l10">纠纷类型：超时未确认</p>
-            <p class="pa t20 l10">投诉时间：2019.01.12</p>
-            <p class="pa t25 l10">发起人:yonghum</p>
-            <button class="ui-btn ui-btn-primary sendClass pa tr t20 l80 w30">
-                撤销投诉
-            </button>
-        </div>
+		<div class='mui-row detai'>
+			<div class='mui-col-xs-12'>
+				<p class='firstT'>交易号{{busId}}</p>
+			</div>
+			<div class='mui-col-xs-12'>
+				<p class='firstT'>纠纷类型：超时未确认</p>
+			</div>
+			<div class='mui-col-xs-12'>
+				<p class='firstT'>投诉时间：xxxxxxx</p>
+			</div>
+			<div class='mui-col-xs-12'>
+				<p class='firstT'>发起人{{user}}</p>
+				<button>撤销投诉</button>
+			</div>
+		</div>
+		
+		<div style='width:100%;height:2px;background:#000;'></div>
 
-        <p>协商记录</p>
+		<div class='mui-row log'>
+			<div class='mui-col-xs-12'>
+				<p class='firstT' style='margin:0 auto;'>协商记录</p>
+			</div>
+			<div class='mui-col-xs-12'>
+				<img src="static/img/@3x/$.png">
+				<p class='firstT'>{{user}}</p>
+				<p class='firstT'>时间占位符</p>
+			</div>
+			<div class='mui-col-xs-12'>
+				<p class='firstT'>留言：xxxxxxxxxxxxxxxx</p>
+			</div>
+			<div class='mui-col-xs-12'>
+				<p class='firstT'>凭证</p>
+				<img src="static/img/@3x/$.png">
+				<img src="static/img/@3x/$.png">
+				<img src="static/img/@3x/$.png">
+			</div>
+		</div>
 
-        <div class="tbody">
-            
-            <div class="ewm pa t40 l1">
-                asdfasf
-            </div>
+		<div style='width:100%;height:2px;background:#000;'></div>
 
-            <p class="pa t41 l35">留言：xxxxxxxx</p>
-            <p class="pa t51 l35">凭证:</p>
-            <input type="file" class="cnmm pa tr t58 l80">
-            
-        </div>
+		<div class='mui-row sys'>
+			<div class='mui-col-xs-12'>
+				<img src="static/img/@3x/$.png">
+				<p class='firstT'>系统</p>
+				<p class='firstT'>时间占位符</p>
+			</div>
+			<div class='mui-col-xs-12'>
+				<p class='firstT' style='margin:0 auto;'>用户xxx于xxx发起投诉</p>
+			</div>
+			<div class='mui-col-xs-12'>
+				<p class='firstT' style='margin:0 auto;'>请用户xxx在xxx前做出回应，若到期无回应则判定此次投诉成功</p>
+			</div>
+		</div>
 
-        <div class="list">
+		<div style='width:100%;height:2px;background:#000;'></div>
 
-            <div class="ewm2 pa t70 l1">
-                asdfasf
-            </div>
+		<router-link to='/leaveMsg'><button>留言</button></router-link>
 
-            <p class="pa t66 l45">系统</p>
-            <p class="pa t70 l28">01/01 15:52:11</p>
-            <p class="pa t75 l28">用户XXX于XXX发起投诉</p>
-            <p class="pa t80 l28">请用户XXX在XXX时间前做出回应，若无回应判定此次投诉成功</p>
-        </div>
-
-        <button class="ui-btn-lg ui-btn-primary sendClass pa b8 l0">
-            留言
-        </button>
-
-        
+    <div style='height:200px;'></div>
     </div>
 </template>
 <script>
@@ -52,35 +78,78 @@ export default {
             busId:164567789713,
             user:"asdfsdf"
         }
-    }    
+    },
+		methods: {
+			backToOld(){
+				this.$router.go(-1);
+			}
+		},   
 }
 </script>
 <style lang="less">
-.appTrade{
-    width: 100%;
-    height: 10rem;
-    background: #ffffff;
-    .header{
-        width: 100%;
-        height: 2.5rem;
-        background: #00ff00;
-    }
-    .tbody{
-        height: 100%;
-        height: 2.5rem;
-        background: #ff0000;
-        .ewm{
-            width: 100px;
-            height: 100px;
-            background: #ffffff;
-        }
-    }
-    .list{
-        .ewm2{
-            width: 100px;
-            height: 100px;
-            background: #919191;
-        }
-    }
+.trade{
+	width:100%;
+}
+.trade .arrow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.trade .arrow::after{
+  content:'';
+  width:15px;
+  height:15px;
+  border-top:3px solid #ccc;
+  border-right:3px solid #ccc;
+  transform:rotate(225deg);
+}
+.trade .back{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:start;
+  width:100%;
+}
+.trade .back span:nth-child(1){
+  margin-left:5%;
+}
+.trade .back span:nth-child(2){
+  margin:0 auto !important;
+}
+.app-trade .firstT{
+  font-size:18px;
+  color:#000;
+}
+.app-trade .secT{
+  color:#000;
+  font-size:14px;
+}
+.app-trade p{
+	display:inline-block;
+}
+.app-trade{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+}
+
+.detai,.log,.sys{
+	width:70%;
+}
+.detai div,.log div,.sys div{
+	margin-top:5%;
+	display:flex;
+	flex-direction:column;
+	align-items:start;
+	justify-content:center;
+}
+.detai div:nth-child(4),.log div:nth-child(2),.log div:nth-child(4),.sys div:nth-child(1){
+	flex-direction:row;
+	align-items:center;
+	justify-content:space-between;
+}
+
+.app-trade>a>button,.app-trade>a{
+	width:100%;
 }
 </style>

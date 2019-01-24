@@ -5,7 +5,7 @@
             <div class='mui-col-xs-12'>
                 <div class='grid-content bg-purple-dark back'>
                     <span class='arrow' @click='backToOld'></span>
-                    <span>修改个人信息</span>
+                    <span>查看个人信息</span>
                 </div>
             </div>
         </div>
@@ -50,6 +50,8 @@
                 </div>
             </form>
         </div>
+
+        <router-link to='/updataProfile'><button type="button" class="mui-btn mui-btn-danger updata">修改个人信息</button></router-link>
 
 
     </div>
@@ -144,4 +146,7 @@ export default {
   margin:0 auto !important;
 }
 
+.updata{
+  width:100%;
+}
 </style>

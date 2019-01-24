@@ -330,7 +330,6 @@ export default {
     },
     LoginQue(){
       if(this.pageNum==0){
-        console.log(this.loginData);
         let url = sessionStorage.getItem('serverIp')+"/login";
         this.axios.post(
           url,
@@ -341,10 +340,10 @@ export default {
           }
         )
         .then((res)=>{
-          
           if(res.data.data.msg == "successed" && res.data.type == 201){
               sessionStorage.setItem('uPhone',this.loginData.data.user);//登陆成功之后将电话存入全局变量
               this.$router.push('/index');
+              // this.$router.go(-1);
               this.$store.state.loginData = res.data;
           }
         });

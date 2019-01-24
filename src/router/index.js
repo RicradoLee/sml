@@ -37,6 +37,7 @@ import aboutUs from '@/components/set/aboutUs'
 import cphone from '@/components/set/cphone'
 import cQQ from '@/components/set/cQQ'
 import cemail from '@/components/set/cemail'
+import updataProfile from '@/components/set/updataProfile'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ export default new Router({
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
+    },
+    {
+      path:'/updataProfile',
+      name:'updataProfile',
+      component:updataProfile
     },
     {
       path:'/complain',

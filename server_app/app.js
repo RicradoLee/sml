@@ -2,6 +2,8 @@ const express=require('express');
 //const pool=require('./pool');
 const cors=require("cors");
 const bodyParser=require('body-parser');
+const fs=require('fs');//文件系统模块 管理文件
+const multer=require('multer');
 
 
 
@@ -186,3 +188,29 @@ app.post('/middle',(req,res)=>{
   res.send(middleData);
 });
 
+//创建multer对象并指定上传文件目录
+var upload=multer({dest:'upload/'});
+//创建处理上传请求 /upload 上传单个文件
+app.post('/upload',upload.single('mypic'),(req,res)=>{//'mypic'指定上传文件表单name='mypic'
+	//获取文件大小
+	var size=req.file.size/1024/1024;
+	if(size>2)
+	{
+		res.send({code:-1,msg:'上传文件过大 文件限制为2MB'});
+		return;
+	}
+	//获取文件类型
+	var type=req.file.mimetype;
+	if(type.indexOf('image') == -1)
+	{
+		res.send({code:-1,msg:'只能上传图片文件'});
+		return;
+	}
+	//为文件创建新文件名
+	var src=req.file.originalname;//获取原文件名
+	var des=`./upload/${new Date().getTime()}${Math.floor(Math.random()*9999)}.${src.split('.')[src.split('.').length-1]}`;//将时间戳+四位随机数作为新的文件名 按照.截取源文件名并取其文件类型与新文件名组合
+	//将临时文件移动到upload目录下
+	fs.renameSync(req.file.path,des);
+	//返回上传成功信息
+	res.send({code:1,msg:'上传成功'});
+})

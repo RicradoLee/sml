@@ -35,7 +35,7 @@
                     <div class="ui-avatar-s wsgrxx">
                     </div>
                     <div class="ui-list-info ui-border-t" @click="perPelForm">
-                        <h4 class="ui-nowrap" >修改个人信息</h4>
+                        <h4 class="ui-nowrap" >查看个人信息</h4>
                     </div>
                 </li>
             </ul>
@@ -90,6 +90,7 @@ export default {
 		}
   },
 	created() {
+        sessionStorage.setItem('serverIp','http://172.163.8.212:3001');
 		if(sessionStorage.getItem('uPhone'))
         {
             this.uInfo=true;
@@ -98,7 +99,7 @@ export default {
 	},
   methods: {
     logOut(){
-        sessionStorage.removeItem('uPhone');//清除用户信息
+        sessionStorage.clear();//清除用户信息
         history.go(0);
     },
     judge(){
