@@ -22,7 +22,7 @@
 			</div>
 			<div class='mui-col-xs-12'>
 				<p class='firstT'>发起人{{user}}</p>
-				<button>撤销投诉</button>
+				<button @click='delComplain'>撤销投诉</button>
 			</div>
 		</div>
 		
@@ -72,6 +72,7 @@
     </div>
 </template>
 <script>
+import { MessageBox } from 'mint-ui';
 export default {
     data(){
         return{
@@ -81,7 +82,25 @@ export default {
     },
 		methods: {
 			backToOld(){
-				this.$router.go(-1);
+				this.$router.push('/details');
+			},
+			delComplain(){
+				MessageBox.confirm('', { 
+					 message: '确定撤销投诉吗？', 
+					 title: '提示', 
+					 confirmButtonText: '确定', 
+					 cancelButtonText: '取消' 
+				 }).then(action => { 
+					 if (action == 'confirm') {     //确认的回调
+							console.log(11);
+							sessionStorage.setItem('complain','');
+							this.$router.push('/details');
+					 }
+					 }).catch(err => { 
+					 if (err == 'cancel') {     //取消的回调
+							return;
+					 } 
+				 });
 			}
 		},   
 }

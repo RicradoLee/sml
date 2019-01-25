@@ -11,7 +11,7 @@
                       <label>
                           账号
                       </label>
-                      <input type="text" placeholder="手机号或账号" v-model="loginData.data.user">
+                      <input type="text" placeholder="请输入用户名或邮箱" v-model="loginData.data.user">
                       <a href="#" class="ui-icon-close">
                       </a>
                   </div>
@@ -173,6 +173,7 @@
   </div>
 </template>
 <script>
+import { Toast } from 'mint-ui';
 export default {
   data() {
     return {
@@ -329,6 +330,12 @@ export default {
       this.pageNum = 4;
     },
     LoginQue(){
+      let reg1 = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;//邮箱验证
+      if (!reg1.test(this.loginData.data.user)) {
+        Toast('邮箱格式有误');
+        return;
+      }
+
       if(this.pageNum==0){
         let url = sessionStorage.getItem('serverIp')+"/login";
         this.axios.post(
@@ -341,9 +348,10 @@ export default {
         )
         .then((res)=>{
           if(res.data.data.msg == "successed" && res.data.type == 201){
-              sessionStorage.setItem('uPhone',this.loginData.data.user);//登陆成功之后将电话存入全局变量
+              sessionStorage.setItem('email',this.loginData.data.user);//登陆成功之后将邮箱存入全局变量
+              // alert('登录成功');
+              Toast('登录成功');
               this.$router.push('/index');
-              // this.$router.go(-1);
               this.$store.state.loginData = res.data;
           }
         });
@@ -361,6 +369,7 @@ export default {
   .ui-dialog {
     background: url('/static/bg.jpg') no-repeat;
     background-size: 100% 100%;
+    z-index:11;
     .pd0{
       padding-right: 0px;
     }

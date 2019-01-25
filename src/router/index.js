@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import index from '@/components/index'
 import reg from '@/components/register/reg'
 import login from '@/components/login'
 import home from '@/components/home'
@@ -14,7 +14,6 @@ import sale from '@/components/sale'
 import buy from '@/components/buy'
 
 import tranDetail from '@/components/transaction/tranDetail'
-import tranComplain from '@/components/transaction/tranComplain'
 import tradeDispute from '@/components/transaction/tradeDispute'
 import leaveMsg from '@/components/transaction/leaveMsg'
 
@@ -44,10 +43,20 @@ Vue.use(Router)
 export default new Router({
   linkActiveClass: 'mui-active',
   routes: [
+    // {
+    //   path: '/',
+    //   name: 'HelloWorld',
+    //   component: HelloWorld
+    // },
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path:'/',
+      name: 'default',
+      component: index
+    },
+    {
+      path:'/index',
+      name:'index',
+      component:index
     },
     {
       path:'/updataProfile',
@@ -80,7 +89,7 @@ export default new Router({
       component: login
     },
     {
-      path: '/index',
+      path: '/home',
       name: 'home',
       component: home
     },
@@ -168,11 +177,6 @@ export default new Router({
       path: '/tranDetail',
       name: 'tranDetail',
       component: tranDetail
-    },
-    {
-      path: '/tranComplain',
-      name: 'tranComplain',
-      component: tranComplain
     },
     {
       path: '/tradeDispute',

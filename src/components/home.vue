@@ -1,10 +1,10 @@
 <template>
-   <div class='app-index'>
+   <div class='app-home'>
       <!--顶部状态栏-->
       <el-row>
         <el-col :span="24" class="w103" v-if='!uInfo'>
           <div class="grid-content bg-purple-dark">
-          首页
+          我的资产
           </div>
         </el-col>
         <el-col :span="24" class="w103" v-else>
@@ -176,7 +176,7 @@
 <script>
 import {Button,Cell,Navbar, TabItem} from 'mint-ui'
 export default {
-  name: "app-index",
+  name: "app-home",
   data() {
     return {
       busOrInvitation:0,
@@ -370,11 +370,11 @@ ul.checked{
   justify-content:space-between;
   align-items:center;
 }
-.app-index .firstT{
+.app-home .firstT{
   font-size:21px;
   color:#000;
 }
-.app-index .secT{
+.app-home .secT{
   color:gray;
   font-size:14px;
 }

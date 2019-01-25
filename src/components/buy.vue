@@ -9,29 +9,39 @@
                 </div>
             </div>
         </div>
-        <!-- <h1>购入资产</h1> -->
-        <!-- tbody -->
-        <tbody>
-            <div  class="tbody pa tr t42 l50">
-                <img src="static/img/@3x/$.png" class="pa tr t25 l25">
-                <p class="pa tr t20 l70">名称：XXXXX</p>
-                <p class="pa tr t25 l70">描述：XXXX</p>
-                <p class="pa tr t75 l70">数量：
-                    <a href="#" class="a-btn" @click="redNum">-</a>
-                        {{num}}
-                    <a href="#" class="a-btn" @click="addNum">+</a>
-                </p>
-                <p class="pa tr t80 l70">可购入数量：20</p>
-                <button class="ui-btn-lg ui-btn-primary pa tr b0 l50">提交</button>
-            </div> 
-        </tbody>
+
+				<!--主体内容-->
+        <div class='mui-row buyCon'>
+					<div class='mui-col-xs-5'>
+						<img src="static/img/@3x/$.png">
+					</div>
+					<div class='mui-col-xs-7'>
+						<div class='mui-row'>
+							<p class='mui-col-xs-12 firstT'>名称:xxxx</p>
+							<p class='mui-col-xs-12 firstT'>描述:<span class='secT'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste quae aut harum molestiae nulla libero est maxime nobis, fuga nihil, voluptas ducimus similique officia incidunt! Dicta aperiam adipisci sed eligendi.</span></p>
+						</div>
+					</div>
+        </div>
+				<div class='mui-col-xs-12 buttns'>
+					<div>
+						<p class='firstT'>可购入数量:{{upNum}}</p>
+					</div>
+					<div>
+						<button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" @click="redNum">-</button>
+							<span class='secT'>{{num}}</span>
+						<button type="button" class="mui-btn mui-btn-primary mui-btn-outlined" @click='addNum'>+</button>
+					</div>
+				</div>
+				<button type="button" class="mui-btn mui-btn-primary mui-btn-outlined ui-btn-lg">提交</button>
+        
     </div>
 </template>
 <script>
 export default {
     data(){
         return{
-            num:0
+            num:0,
+						upNum:20
         }
     },
     methods:{
@@ -39,7 +49,10 @@ export default {
             this.$router.go(-1);
         },
         addNum(){
+					if(this.num<this.upNum)
+					{
             this.num++;
+					}
         },
         redNum(){
             if(this.num >= 0){
@@ -50,6 +63,15 @@ export default {
 }
 </script>
 <style lang="less">
+.app-Buy .firstT{
+  font-size:21px;
+  color:#000;
+}
+.app-Buy .secT{
+  color:#000;
+  font-size:14px;
+}
+
 .grfwq{
     z-index: 1;
     font-size: 0.3rem;
@@ -94,5 +116,33 @@ tbody{
 }
 .buy .back span:nth-child(2){
   margin:0 auto !important;
+}
+
+.buttns,.buttns>div:nth-child(2){
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+.buttns div{
+	width:50%;
+}
+.buttns button{
+	width:30px;
+	height:30px;
+	padding:0;
+}
+.buttns .secT{
+	margin:0 12px;
+}
+
+.buyCon{
+	margin-top:5%;
+}
+.buyCon>div:first-child{
+	margin-top:15%;
+}
+
+.buyCon>div:last-child>div p{
+	margin-bottom:5%;
 }
 </style>

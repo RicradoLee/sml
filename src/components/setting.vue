@@ -13,8 +13,8 @@
 
         <header class="w100">
             <img src="static/img/@3x/$.png">
-            <p v-if='!uPhone'><span><router-link to='/login'>请登录</router-link></span>/<span><router-link to='/reg'>注册</router-link></span></p>
-            <p v-else>{{uPhone}}<span @click='logOut'>&nbsp;&nbsp;&nbsp;&nbsp;退出登录</span></p>
+            <p v-if='!email'><span><router-link to='/login'>请登录</router-link></span>/<span><router-link to='/reg'>注册</router-link></span></p>
+            <p v-else>{{email}}<span @click='logOut'>&nbsp;&nbsp;&nbsp;&nbsp;退出登录</span></p>
         </header>
             <ul class="ui-list ui-list-link ui-list-single ui-border-tb mt40">
                 <li>
@@ -86,15 +86,15 @@ export default {
   name: "appSetting",
   data() {
     return {
-			uPhone:''
+			email:''
 		}
   },
 	created() {
         sessionStorage.setItem('serverIp','http://172.163.8.212:3001');
-		if(sessionStorage.getItem('uPhone'))
+		if(sessionStorage.getItem('email'))
         {
             this.uInfo=true;
-            this.uPhone=sessionStorage.getItem('uPhone');
+            this.email=sessionStorage.getItem('email');
         }
 	},
   methods: {
@@ -103,7 +103,7 @@ export default {
         history.go(0);
     },
     judge(){
-      if(!sessionStorage.getItem('uPhone'))
+      if(!sessionStorage.getItem('email'))
       {
         alert('还未登录 请先登录', 'Hello MUI');
         return false;
@@ -179,7 +179,7 @@ export default {
   transform:rotate(225deg);
 }
 header{
-    margin-top: -20px;
+    margin-top: -80px;
     height: 1.9rem;
     background: #1E90FF;
 }

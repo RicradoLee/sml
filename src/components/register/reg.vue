@@ -9,8 +9,8 @@
       <div class='mui-row' :class="{showed:istype != 0}">
         <form class="mui-input-group info">
           <div class="mui-input-row">
-              <label>手机号</label>
-              <input type="text" class="mui-input-clear" placeholder="请输入手机号" v-model="sendData.data.phone">
+              <label>邮箱</label>
+              <input type="text" class="mui-input-clear" placeholder="请输入邮箱" v-model="sendData.data.email">
           </div>
           <div class="mui-input-row">
               <label>密码</label>
@@ -64,6 +64,7 @@
   </div>
 </template>
 <script>
+import { Toast } from 'mint-ui';
 export default {
   data() {
     return {
@@ -77,7 +78,7 @@ export default {
       sendData: {
         type: 100,
         data: {
-          phone: null,
+          email: null,
           pwd:null,
           authToken: null,
           invitationCode: null
@@ -127,7 +128,7 @@ export default {
       this.istype = 4;
     },
     theErrerPho() {
-      this.theErrer = "手机号";
+      this.theErrer = "邮箱格式";
       this.istype = 4;
     },
     theErrerPwd() {
@@ -148,9 +149,9 @@ export default {
         });
     },
     next() {
-      //验证电话号码
-      let reg1 = /^1[3-8]\d{9}$/;
-      if (!reg1.test(this.sendData.data.phone)) {
+      //验证邮箱
+      let reg1 = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+      if (!reg1.test(this.sendData.data.email)) {
         this.theErrerPho();
         return;
       }
@@ -166,7 +167,7 @@ export default {
         return;
       }
 
-      if(this.sendData.data.authToken == this.getAuthToken && reg1.test(this.sendData.data.phone) && reg2.test(this.sendData.data.pwd) && this.istype == 0){
+      if(this.sendData.data.authToken == this.getAuthToken && reg1.test(this.sendData.data.email) && reg2.test(this.sendData.data.pwd) && this.istype == 0){
         this.istype=1;
       }
 
@@ -199,7 +200,7 @@ export default {
           let regData = {};
           regData.type = 102;
           regData.data = {};
-          regData.data.phone = this.sendData.data.phone || null;
+          regData.data.email = this.sendData.data.email || null;
           regData.data.pwd = this.sendData.data.pwd || null;
           regData.data.invitationCode = this.sendData.data.invitationCode || null;
           regData.data.sixAuthCode = this.sixAuthCode || null;
@@ -217,6 +218,7 @@ export default {
           .then((res)=>{
             console.log(res.data);
             if(res.data.data.msg == "successed" && res.data.type == 103){
+              Toast('注册成功');
               this.istype=3;
             }
           });
