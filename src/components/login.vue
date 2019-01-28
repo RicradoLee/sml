@@ -1,5 +1,5 @@
 <template>
-  <div class="app-login">
+  <div class="app-login" id='app-login'>
     <!-- 登录主页面 -->
     <div class="ui-dialog ui-dialog-operate" :class="{show:pageNum == 0}">
       <div class="ui-dialog-cnt">
@@ -11,7 +11,7 @@
                       <label>
                           账号
                       </label>
-                      <input type="text" placeholder="请输入用户名或邮箱" v-model="loginData.data.user">
+                      <input type="text" placeholder="请输入用户名或邮箱" v-model="forPwdData.data.user">
                       <a href="#" class="ui-icon-close">
                       </a>
                   </div>
@@ -19,7 +19,7 @@
                       <label>
                           密码
                       </label>
-                      <input type="password" placeholder="8-15位密码" v-model="loginData.data.pwd">
+                      <input type="password" placeholder="8-15位密码" v-model="forPwdData.data.pwd">
                       <a href="#" class="ui-icon-close">
                       </a>
                   </div>
@@ -59,114 +59,49 @@
       </div>
     </div>
 
-    <!-- 忘记密码 -->
-    <div class="ui-dialog ui-dialog-operate" :class="{show:pageNum == 2}">
-      <div class="ui-dialog-cnt">
-        <div class="ui-dialog-bd">
-          <h3>忘记密码</h3>
-            <div class="ui-form ui-border-t">
-              <form action="">
-                  <div class="ui-form-item ui-border-b">
-                      <label>
-                          账号
-                      </label>
-                      <input type="text" placeholder="手机号或账号" v-model="forPwdData.data.user">
-                      <a href="#" class="ui-icon-close" @click="clearUser">
-                      </a>
-                  </div>
-                  <div class="ui-form-item ui-form-item-pure ui-border-b pd0">
-                      <label>
-                        验证码&nbsp
-                      </label>
-                      <input type="text" placeholder="四位验证码" v-model="forPwdData.data.AuthToken">
-                      <a href="#" @click="getAuth">
-                        <span style="text-align:right;margin-left:-40px;">{{getAuthToken}}</span>
-                      </a>
-                  </div>
-                  <div class="ui-btn-wrap">
-                      <button class="ui-btn-lg ui-btn-primary" @click="forPwd">
-                        下一步
-                      </button>
-                  </div>
-              </form>
-          </div>
-          <i class="ui-dialog-close" data-role="button" @click="toLoginIndex"></i>
+    <div :class="{show:pageNum == 2}">
+      <div class='title'>
+        <div>
+          <h3>修改密码</h3>
+        </div>
+
+        <div class='mui-row'>
+          <form class="mui-input-group info">
+            <div class="mui-input-row">
+                <label>邮箱</label>
+                <input type="text" class="mui-input-clear" placeholder="请输入邮箱" v-model="forPwdData.data.user">
+            </div>
+            <div class="mui-input-row">
+                <label>旧密码</label>
+                <input type="password" class="mui-input-clear" placeholder="请输入旧密码" v-model="forPwdData.data.pwd">
+            </div>
+
+            <div class="mui-input-row">
+                <label>新密码</label>
+                <input type="password" class="mui-input-clear" placeholder="请输入新密码" v-model="newPwd">
+            </div>
+            <div class="mui-input-row">
+                <label>再次输入密码</label>
+                <input type="password" class="mui-input-clear" placeholder="请再次输入密码" v-model="againPwd">
+            </div>
+          </form>
+        </div>
+
+        <div class='mui-row sub'>
+          <button type="button" class="mui-btn mui-btn-primary" @click='checkAuthToken'>提交</button>
         </div>
       </div>
-    </div>
 
-    <!-- 输入验证码 -->
-    <div class="ui-dialog ui-dialog-operate" :class="{show:pageNum == 3}">
-      <div class="ui-dialog-cnt">
-        <div class="ui-dialog-bd">
-          <h3>输入验证码</h3>
-            <div class="ui-form ui-border-t">
-              <form action="">
-                  <div class="ui-form-item ui-border-b">
-                      <label>
-                        验证码
-                      </label>
-                      <input type="text" placeholder="短信验证码" v-model="Auth">
-                      <a href="#" class="ui-icon-close" @click="clearAuth">
-                      </a>
-                  </div>
-                  <div class="ui-btn-wrap">
-                      <button class="ui-btn-lg ui-btn-primary" @click="forPwd">
-                        下一步
-                      </button>
-                  </div>
-              </form>
+      <!-- 修改成功 -->
+      <div class="ui-dialog ui-dialog-operate" :class="{show:pageNum == 4}">
+        <div class="ui-dialog-cnt">
+          <div class="ui-dialog-bd">
+            <h3>修改成功</h3>
           </div>
-          <i class="ui-dialog-close" data-role="button" @click="toLoginIndex"></i>
-        </div>
-      </div>
-    </div>
-
-    <!-- 修改密码 -->
-    <div class="ui-dialog ui-dialog-operate" :class="{show:pageNum == 4}">
-      <div class="ui-dialog-cnt">
-        <div class="ui-dialog-bd">
-          <h3>输入新密码</h3>
-            <div class="ui-form ui-border-t">
-              <form action="">
-                  <div class="ui-form-item ui-border-b">
-                      <label>
-                        密码
-                      </label>
-                      <input type="password" placeholder="8-15位包含数字和字母" v-model="newPwd">
-                      <a href="#" class="ui-icon-close" @click="clearNewPwd">
-                      </a>
-                  </div>
-                  <div class="ui-form-item ui-border-b">
-                      <label>
-                        重复密码
-                      </label>
-                      <input type="password" placeholder="" v-model="againPwd">
-                      <a href="#" class="ui-icon-close" @click="clearAgaPwd">
-                      </a>
-                  </div>
-                  <div class="ui-btn-wrap">
-                      <button class="ui-btn-lg ui-btn-primary" @click="forPwd">
-                        下一步
-                      </button>
-                  </div>
-              </form>
-          </div>
-          <i class="ui-dialog-close" data-role="button" @click="toLoginIndex"></i>
-        </div>
-      </div>
-    </div>
-
-    <!-- 修改成功 -->
-    <div class="ui-dialog ui-dialog-operate ui-dialog-operate-icon" :class="{show:pageNum == 5}">
-      <div class="ui-dialog-cnt">
-        <div class="ui-dialog-bd">
-          <h3>喔！天呐！你终于修改好密码了 ！蛋疼</h3>
-        </div>
-        <div class="ui-dialog-ft">
+          <div class="ui-dialog-ft">
           <button class="ui-btn-lg" @click="toLoginIndex">立即登录</button>
+          </div>
         </div>
-          <i class="ui-dialog-close" data-role="button"  @click="toLoginIndex"></i>
       </div>
     </div>
 
@@ -180,20 +115,12 @@ export default {
       againPwd:null,
       newPwd:null,
       Auth:null,
-      getAuthToken:4835,
       pageNum:0,
-      loginData:{
-        type:200,
-        data:{
-          user:null,
-          pwd:null
-        }
-      },
       forPwdData:{
         type:205,
         data:{
           user:null,
-          AuthToken:4385
+          pwd:null
         }
       }
     };
@@ -203,77 +130,8 @@ export default {
   updated() {
   },
   methods: {
-    forPwd(){
-      switch(this.pageNum){
-        case 2:
-          this.checkAuthToken();
-        break;
-
-        case 3:
-          this.checkAuthToken();
-        break;
-
-        case 4:
-          this.sendPwdData();
-        break;
-      }
-    },
-    sendPwdData(){
-      if(this.pageNum==4){
-        let data = {
-          type:209,
-          data:{
-            pwd:this.newPwd || null,
-            user:this.forPwdData.data.user || null
-          }
-        };
-
-        let url = sessionStorage.getItem('serverIp')+"/forPwd";
-        this.axios.post(
-          url,
-          this.qs.stringify(this.forPwdData),{
-            headers:{
-              "Content-Type": "application/x-www-form-urlencoded"
-            }
-          }
-        )
-        .then((res)=>{
-          console.log(res.data);
-          if(res.data.data.msg == "change succeed" && res.data.type == 210){
-            this.pageNum = 5;
-          }
-        });
-      }
-    },
-    checkAuth(){
-      if(this.pageNum==3){
-        let data = {
-          type:207,
-          data:{
-            sixAuth:null,
-            user:this.forPwdData.data.user || null
-          }
-        };
-        let url = sessionStorage.getItem('serverIp')+"/forPwd";
-        this.axios.post(
-          url,
-          this.qs.stringify(this.forPwdData),{
-            headers:{
-              "Content-Type": "application/x-www-form-urlencoded"
-            }
-          }
-        )
-        .then((res)=>{
-          console.log(res.data);
-          if(res.data.data.sixAuth == this.Auth && res.data.type == 208){
-            this.pageNum = 4;
-          }
-        });
-      }
-    },
     checkAuthToken(){
       if(this.pageNum==2){
-        console.log(this.forPwdData);
         let url = sessionStorage.getItem('serverIp')+"/forPwd";
         this.axios.post(
           url,
@@ -284,55 +142,36 @@ export default {
           }
         )
         .then((res)=>{
-          console.log(res.data);
-          if(res.data.data.AuthToken == this.AuthToken && res.data.type == 206){
-            this.pageNum = 3;
+          if(res.data.type == 206){
+            this.pageNum = 4;
           }
        });
       }
     },
-    getAuth(){
-      //获取验证码
-      let url = sessionStorage.getItem('serverIp')+"/getToken";
-      this.axios
-        .get(url)
-        .then(res => {
-          //console.log(res.data);
-          this.getAuthToken = res.data.getAuthToken;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    clearNewPwd(){
-      this.newPwd = null;
-    },
-    clearAgaPwd(){
-      this.againPwd = null;
-    },
-    clearAuth(){
-      this.Auth = null;
-    },
-    clearUser(){
-      this.forPwdData.data.user = null;
-    },
     toForPwd(){
       this.pageNum = 2;
-      this.getAuth();
     },
     toReg(){
       this.$router.push('/reg');
     },
     toLoginIndex(){
       this.pageNum = 0;
+      this.$router.push('/login');
     },
     toService(){
-      this.pageNum = 4;
+      this.pageNum = 10;
     },
     LoginQue(){
+      //验证邮箱格式
       let reg1 = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;//邮箱验证
-      if (!reg1.test(this.loginData.data.user)) {
+      if (!reg1.test(this.forPwdData.data.user)) {
         Toast('邮箱格式有误');
+        return;
+      }
+      //验证密码
+      let reg2 = /^\w{8,15}$/;
+      if (!reg2.test(this.forPwdData.data.pwd)) {
+        Toast('密码格式有误');
         return;
       }
 
@@ -347,12 +186,13 @@ export default {
           }
         )
         .then((res)=>{
-          if(res.data.data.msg == "successed" && res.data.type == 201){
-              sessionStorage.setItem('email',this.loginData.data.user);//登陆成功之后将邮箱存入全局变量
+          if(res.data.type == 200){
+              sessionStorage.setItem('email',res.data.data.user);//登陆成功之后将邮箱存入全局变量
+              sessionStorage.setItem('id',res.data.data.id);
               // alert('登录成功');
               Toast('登录成功');
               this.$router.push('/index');
-              this.$store.state.loginData = res.data;
+              this.$store.state.loginData = res.data.data.user;
           }
         });
       }
@@ -364,8 +204,8 @@ export default {
 @thisRem: 0.1rem;
 .app-login {
   margin: 0;
+  color:#fff;
   font-size: @thisRem;
-  color: #fff;
   .ui-dialog {
     background: url('/static/bg.jpg') no-repeat;
     background-size: 100% 100%;
@@ -404,5 +244,43 @@ export default {
       }
     }
   }
+}
+
+.title{
+  margin-top:38%;
+  padding:5% 3%;
+
+}
+#app-login{
+  background: url(/static/bg.jpg) no-repeat;
+  background-size: 100% 100%;
+  height:92% !important;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+}
+#token{
+  position:absolute;
+  top:8px;
+  left:307px;
+}
+.info{
+  background:none;
+}
+.sub button{
+  width:100%;
+}
+
+.show{
+  display: block;
+}
+#app-login .ui-dialog-ft button{
+  margin-left:100%;
 }
 </style>

@@ -14,7 +14,7 @@
             <form action="">
                 <div class="ui-form-item ui-form-item-link ui-border-b"  v-for="(item,i) of jsonP" @click="toIndexPage(i);">
                     <label>
-                        第{{i}}级
+                        第{{i+1}}级
                     </label>
                 </div>
             </form>

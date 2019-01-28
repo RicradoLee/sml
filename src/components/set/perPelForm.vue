@@ -18,6 +18,30 @@
                     </label>
                     <p style="margin-left:10px;">{{perForm.data.user}}</p>
                 </div>
+                <div class="ui-form-item  ui-border-b">
+                    <label>
+                        姓名
+                    </label>
+                    <p style="margin-left:10px;">{{perForm.data.uname}}</p>
+                </div>
+                <div class="ui-form-item  ui-border-b">
+                    <label>
+                        年龄
+                    </label>
+                    <p style="margin-left:10px;">{{perForm.data.age}}</p>
+                </div>
+                <div class="ui-form-item  ui-border-b">
+                    <label>
+                        出生日期
+                    </label>
+                    <p style="margin-left:10px;">{{perForm.data.birth}}</p>
+                </div>
+                <div class="ui-form-item  ui-border-b">
+                    <label>
+                        家庭住址
+                    </label>
+                    <p style="margin-left:10px;">{{perForm.data.addr}}</p>
+                </div>
                 <div class="ui-form-item ui-form-item-link ui-border-b" @click="cSafeCode">
                     <label>
                         安全码
@@ -48,6 +72,7 @@
                     </label>
                     <p style="margin-left:10px;">{{perForm.data.email}}</p>
                 </div>
+                
             </form>
         </div>
 
@@ -63,24 +88,30 @@ export default {
     return {
       showed: false,
       againPwd: null,
-      perForm: {
-        type: 1001,
-        data: {
-          user: "asdfasfdas",
-          safeCode: "asdfsadfasd",
-          getId: "nasdfasfdsafull",
-          phone: 18519182257,
-          email: null,
-          QQ: null
-        }
-      }
+      perForm: {data:{user:''}}
     };
   },
-  created() {},
+  created() {
+    this.perForm.data.user=sessionStorage.getItem('email');
+    let url = sessionStorage.getItem('serverIp')+"/profile";
+    this.axios.post(
+      url,
+      sessionStorage.getItem('id'),{
+        headers:{
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      }
+    )
+    .then((res)=>{
+      if(res.data.type == 200){
+          this.perForm=res.data;
+      }
+    });
+  },
   watch: {},
   methods: {
     backToOld(){
-        this.$router.go(-1);
+        this.$router.push('/setting');
     },
     cEmail() {
       this.$router.push("/setting/cemail");

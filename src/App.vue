@@ -6,13 +6,9 @@
     <!-- 底部导航栏 -->
     <footer>
       <nav class="mui-bar mui-bar-tab">
-      <router-link class="mui-tab-item " to="/index" >
+      <router-link class="mui-tab-item active" to="/index" >
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
-			</router-link>
-			<router-link class="mui-tab-item " to="/home" >
-				<span class="mui-icon mui-icon-locked"></span>
-				<span class="mui-tab-label">我的资产</span>
 			</router-link>
 			<router-link class="mui-tab-item" to="/middle"  >
 				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">0</span></span>
@@ -20,7 +16,7 @@
 			</router-link>
 			<router-link class="mui-tab-item" to="/setting">
 				<span class="mui-icon mui-icon-contact"></span>
-				<span class="mui-tab-label">我的信息</span>
+				<span class="mui-tab-label">我的</span>
 			</router-link>
 		</nav>
     </footer>

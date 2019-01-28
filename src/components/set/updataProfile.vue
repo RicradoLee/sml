@@ -13,8 +13,8 @@
 
     <ul class='revise'>
       <li>
-        <p>申请人姓名</p>
-        <input type="text" placeholder='请输入申请人姓名' />
+        <p>姓名</p>
+        <input type="text" placeholder='请输入您的姓名' />
       </li>
       <li>
         <p>年龄</p>
@@ -35,6 +35,18 @@
       <li>
         <p>身份证号</p>
         <input type="text" placeholder='请输入人身份证号' />
+      </li>
+      <li>
+        <p>安全码</p>
+        <input type="text" placeholder='请输入安全码' />
+      </li>
+      <li>
+        <p>收款账号</p>
+        <input type="text" placeholder='请输入收款账号' />
+      </li>
+      <li>
+        <p>QQ号</p>
+        <input type="text" placeholder='请输入QQ号' />
       </li>
       <li>
         <p>联系电话</p>
@@ -175,7 +187,7 @@ export default {
   cursor: pointer;
 }
 
-.updata{
+.app-profile .updata{
   width:100%;
   background-color:#f90;
   border:none;

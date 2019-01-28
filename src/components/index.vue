@@ -94,6 +94,7 @@ export default{
     
   },
   created() {
+     sessionStorage.setItem('serverIp','http://172.163.8.212:3001');
     if(sessionStorage.getItem('email')){
       this.uname=true;
     }

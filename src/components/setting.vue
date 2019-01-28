@@ -5,32 +5,23 @@
             <div class='mui-col-xs-12'>
                 <div class='grid-content bg-purple-dark back'>
                     <span class='arrow'></span>
-                    <span>个人中心</span>
+                    <span>我的</span>
                 </div>
             </div>
         </div>
 
 
         <header class="w100">
-            <img src="static/img/@3x/$.png">
-            <p v-if='!email'><span><router-link to='/login'>请登录</router-link></span>/<span><router-link to='/reg'>注册</router-link></span></p>
-            <p v-else>{{email}}<span @click='logOut'>&nbsp;&nbsp;&nbsp;&nbsp;退出登录</span></p>
+            <div>
+                <img src="static/img/@3x/$.png" @click="perPelForm" />
+            </div>
+            <div>
+                <p v-if='!email'><span><router-link to='/login'>请登录</router-link></span>/<span><router-link to='/reg'>注册</router-link></span></p>
+                <p v-else>{{email}}</p>
+                <p @click='logOut'>&nbsp;&nbsp;&nbsp;&nbsp;退出登录</p>
+            </div>
         </header>
             <ul class="ui-list ui-list-link ui-list-single ui-border-tb mt40">
-                <li>
-                    <div class="ui-avatar-s xgmm">
-                    </div>
-                    <div class="ui-list-info ui-border-t" @click="cPwd">
-                        <h4 class="ui-nowrap" >修改个人密码</h4>
-                    </div>
-                </li>
-                <li>
-                    <div class="ui-avatar-s xgaqm">
-                    </div>
-                    <div class="ui-list-info ui-border-t" @click="cSafeCode">
-                        <h4 class="ui-nowrap" >修改安全码</h4>
-                    </div>
-                </li>
                 <li>
                     <div class="ui-avatar-s wsgrxx">
                     </div>
@@ -38,17 +29,16 @@
                         <h4 class="ui-nowrap" >查看个人信息</h4>
                     </div>
                 </li>
+                <li>
+                    <div class="ui-avatar-s xgmm">
+                    </div>
+                    <div class="ui-list-info ui-border-t" @click="cPwd">
+                        <h4 class="ui-nowrap" >修改个人密码</h4>
+                    </div>
+                </li>
             </ul>
 
             <ul class="ui-list ui-list-link ui-list-single ui-border-tb mt20">
-                <li>
-                    <div class="ui-avatar-s xgskzh">
-                        
-                    </div>
-                    <div class="ui-list-info ui-border-t" @click="cGetId">
-                        <h4 class="ui-nowrap" >修改收款账号</h4>
-                    </div>
-                </li>
                 <li>
                     <div class="ui-avatar-s wdyqm">
                     </div>
@@ -90,7 +80,6 @@ export default {
 		}
   },
 	created() {
-        sessionStorage.setItem('serverIp','http://172.163.8.212:3001');
 		if(sessionStorage.getItem('email'))
         {
             this.uInfo=true;
@@ -180,11 +169,16 @@ export default {
 }
 header{
     margin-top: -80px;
-    height: 1.9rem;
+    padding-left:5%;
+    height: 92px;
     background: #1E90FF;
+    display:flex;
+    justify-content:start;
+    align-items:center;
 }
 header img{
 	border-radius:50%;
+    width:100%;
 }
 header p,header a{
 	color:#000;

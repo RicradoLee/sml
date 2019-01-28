@@ -31,6 +31,7 @@
     </div>
 </template>
 <script>
+import { Toast } from 'mint-ui';
 export default {
   name: "",
   data() {
@@ -49,11 +50,10 @@ export default {
   watch: {},
   methods: {
     onCopy: function (e) {
-      console.log('复制成功！');
-      console.log(e.text);
+      Toast('复制成功');
     },
     onError: function (e) {
-      console.log('复制失败！')
+      Toast('复制失败');
     },
     backToOld(){
       this.$router.go(-1);

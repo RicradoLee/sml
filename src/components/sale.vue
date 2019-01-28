@@ -49,10 +49,13 @@ export default {
             this.$router.go(-1);
         },
         addNum(){
-            this.num++;
+            if(this.num<this.upNum)
+			{
+                this.num++;
+			}
         },
         redNum(){
-            if(this.num >= 0){
+            if(this.num > 0){
                 this.num--;
             }
         }

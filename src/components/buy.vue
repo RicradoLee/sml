@@ -41,7 +41,7 @@ export default {
     data(){
         return{
             num:0,
-						upNum:20
+			upNum:20
         }
     },
     methods:{
@@ -49,13 +49,13 @@ export default {
             this.$router.go(-1);
         },
         addNum(){
-					if(this.num<this.upNum)
-					{
-            this.num++;
-					}
+			if(this.num<this.upNum)
+			{
+                this.num++;
+			}
         },
         redNum(){
-            if(this.num >= 0){
+            if(this.num > 0){
                 this.num--;
             }
         }

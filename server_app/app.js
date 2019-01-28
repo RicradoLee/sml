@@ -4,6 +4,7 @@ const cors=require("cors");
 const bodyParser=require('body-parser');
 const fs=require('fs');//文件系统模块 管理文件
 const multer=require('multer');
+const qs=require('qs');
 
 
 
@@ -26,30 +27,28 @@ app.use(express.static(__dirname+"/public"));
 app.listen(3001);
 
 app.get('/gettoken',(req,res)=>{
-  console.log(req.query);
   res.send({
     getAuthToken:Math.round(Math.random()*5000+1)
   });
 });
 
 app.get('/login',(req,res)=>{
-  console.log(req.query);
 });
 
 app.post('/login',(req,res)=>{
-  console.log(req.body);
+	/*链接数据库查询用户信息并得到返回结果*/
   let loginData={
-    type:201,
-    data:{
-      msg:'successed'
-    }
-  }
+		type:200,
+		data:{
+			id:1,
+			user:'测试@qq.com'
+		}
+	};
   res.send(loginData);
 });
 
 
 app.post('/reg',(req,res)=>{
-  console.log(req.body);
   let nextData={
     type:101,
     data:{
@@ -60,7 +59,6 @@ app.post('/reg',(req,res)=>{
 });
 
 app.post('/regAuth',(req,res)=>{
-  console.log(req.body);
   let nextData={
     type:103,
     data:{
@@ -74,7 +72,6 @@ app.post('/regAuth',(req,res)=>{
 
 
 app.get('/forPwd',(req,res)=>{
-  console.log(req.query);
   res.send({
     data:{
       getAuthToken:Math.round(Math.random()*1000+1000)
@@ -83,46 +80,19 @@ app.get('/forPwd',(req,res)=>{
 });
 
 app.post('/forPwd',(req,res)=>{
-  console.log(req.body);
-  switch(req.body.type){
-
-    case 205:
-      res.send({
-        type:206,
-        data:{
-          AuthToken:Math.round(Math.random()*1000+1000),
-          user:req.body.data.user
-        }
-      });
-    break;
-
-    case 207:
-      res.send({
-        type:208,
-        data:{
-          sixAuth:Math.round(Math.random()*100000+100000),
-          user:req.body.data.user
-        }
-      });
-    break;
-
-    case 209:
-      res.send({
-        type:210,
-        data:{
-          msg:'change succeed',
-          user:req.body.data.user
-        }
-      });
-    break;
-  }
+	var temp=qs.parse(req.body);
+	console.log(temp);
+	/*处理密码修改*/
+	res.send({
+		type:206,
+		msg:'密码修改成功'
+	});
 });
 
 
 
 
 app.post('/home',(req,res)=>{
-  console.log(res.body);
   let homdData={
     type:301,
     data:{
@@ -161,11 +131,7 @@ app.post('/home',(req,res)=>{
 });
 
 
-
-
-
 app.post('/middle',(req,res)=>{
-  console.log(res.body);
   let middleData={
     type:401,
     data:{
@@ -213,4 +179,17 @@ app.post('/upload',upload.single('mypic'),(req,res)=>{//'mypic'指定上传文�
 	fs.renameSync(req.file.path,des);
 	//返回上传成功信息
 	res.send({code:1,msg:'上传成功'});
+})
+
+app.post('/profile',(req,res)=>{
+	console.log(req.body);
+	/*根据用户ID查询出用户所有信息*/
+	res.send({type:200,data:{
+          user: "测试@qq.com",
+          safeCode: "asdfsadfasd",
+          getId: "xxxxxxxxxxx",
+          phone: 18519182257,
+          email: null,
+          QQ: null
+        }});
 })
