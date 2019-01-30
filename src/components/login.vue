@@ -189,8 +189,8 @@ export default {
           if(res.data.type == 200){
               sessionStorage.setItem('email',res.data.data.user);//登陆成功之后将邮箱存入全局变量
               sessionStorage.setItem('id',res.data.data.id);
-              // alert('登录成功');
-              Toast('登录成功');
+              alert('登录成功');
+              // Toast('登录成功');
               this.$router.push('/index');
               this.$store.state.loginData = res.data.data.user;
           }

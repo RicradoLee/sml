@@ -218,14 +218,4 @@ ul{
   border-right:3px solid #ccc;
   transform:rotate(45deg);
 }
-.asset .back{
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  justify-content:start;
-  width:100%;
-}
-.asset .back span:nth-child(1){
-  margin:0 auto;
-}
 </style>

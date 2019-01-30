@@ -17,8 +17,7 @@
             </div>
             <div>
                 <p v-if='!email'><span><router-link to='/login'>请登录</router-link></span>/<span><router-link to='/reg'>注册</router-link></span></p>
-                <p v-else>{{email}}</p>
-                <p @click='logOut'>&nbsp;&nbsp;&nbsp;&nbsp;退出登录</p>
+                <p v-else>{{email}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span @click='logOut'>登出</span></p>
             </div>
         </header>
             <ul class="ui-list ui-list-link ui-list-single ui-border-tb mt40">
@@ -88,7 +87,7 @@ export default {
 	},
   methods: {
     logOut(){
-        sessionStorage.clear();//清除用户信息
+        sessionStorage.removeItem('email');//清除用户信息
         history.go(0);
     },
     judge(){
@@ -154,18 +153,9 @@ export default {
 };
 </script>
 <style lang="less">
-.compl .arrow{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.compl .arrow::after{
-  content:'';
-  width:15px;
-  height:15px;
-  border-top:3px solid #ccc;
-  border-right:3px solid #ccc;
-  transform:rotate(225deg);
+p{
+    margin:0;
+    padding:0;
 }
 header{
     margin-top: -80px;
@@ -181,12 +171,16 @@ header img{
     width:100%;
 }
 header p,header a{
-	color:#000;
-	font-size:20px;
+	color:#fff;
+	font-size:18px;
 	font-family:'冬青';
 }
+header>div:nth-child(2){
+    margin-left:5%;
+}
+
 .ui-list li h4 {
-    color: #000;
+    color: #303133;
     margin-block-start: 0em;
     margin-block-end: 0em;
 }

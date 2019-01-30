@@ -2,18 +2,9 @@
    <div class='app-home'>
       <!--顶部状态栏-->
       <el-row>
-        <el-col :span="24" class="w103" v-if='!uInfo'>
+        <el-col :span="24" class="w103">
           <div class="grid-content bg-purple-dark">
           我的资产
-          </div>
-        </el-col>
-        <el-col :span="24" class="w103" v-else>
-          <div class="grid-content bg-purple-dark user">
-            <span class='headmsg'>{{uname}}用户名占位符</span>
-            <div>
-              <span class='headmsg'>退出登录</span>
-              <span class='el-icon-circle-close headmsg'></span>
-            </div>
           </div>
         </el-col>
       </el-row>
@@ -135,10 +126,11 @@
             </div>
             <div style='height:200px;'></div>
           </mt-tab-container-item>
+
           <mt-tab-container-item id="2">
             <div class='cecBox' v-for='item in homeData.data.dealArr'>
               <ul>
-                <!--交易记录-->
+                <!--分享收益-->
                 <li class='record'>
                   <div style='border-bottom:1px solid gray;'>
                     <div>
@@ -183,53 +175,50 @@ export default {
       selected:'1',
       loginData:this.$store.state.loginData,
       uInfo:false,//判断是否有用户信息
-      uname:'',
       homeData:{
-        type:301,
+        type:null,
         data:{
-          totalAssets:521,
-          balance:250,
-          yesEarnings:521,
-          addEarnings:521,
+          totalAssets:null,
+          balance:null,
+          yesEarnings:null,
+          addEarnings:null,
           invitation:{
-            num:0,
-            isCode:false,
-            invUser:"asdfsadf",
-            money:1324,
-            invDate:new Date()
+            num:null,
+            isCode:null,
+            invUser:null,
+            money:null,
+            invDate:null
           },
           dealArr:[
             {
-              invAmount:521524,
-              dealId:25125521252,
-              statusCode:'申购中',
-              expireDate:new Date(),
-              proData:'七天',
-              estAmount:1254.85
+              invAmount:null,
+              dealId:null,
+              statusCode:null,
+              expireDate:null,
+              proData:null,
+              estAmount:null
             },
             {
-              saleAmount:521524,
-              dealId:25125521252,
-              statusCode:'已完成',
-              expireDate:new Date(),
-              saleType:'提现',
-              reaAmount:1254.85
+              saleAmount:null,
+              dealId:null,
+              statusCode:null,
+              expireDate:null,
+              saleType:null,
+              reaAmount:null
             }
           ]
         }
       }
     };
   },created(){
-    sessionStorage.setItem('serverIp','http://172.163.8.212:3001');//设置全局IP
 
-    this.getHomeData();
-    
-    if(sessionStorage.getItem('uname'))
+    if(!sessionStorage.getItem('email'))
     {
-      this.uInfo=true;
-      this.uname=sessionStorage.getItem('uname');
+      this.uInfo=false;
+      return;
     }
 
+    this.getHomeData();
   },
   methods:{
     jumpToDet(){
@@ -242,6 +231,7 @@ export default {
       this.$router.push('/buy');
     },
     getHomeData(){
+      console.log(this.$store.state);
         let url = sessionStorage.getItem('serverIp')+"/home";
         this.axios.post(
           url,
