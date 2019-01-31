@@ -71,6 +71,7 @@
     </div>
 </template>
 <script>
+import {Toast} from 'mint-ui'
 export default {
   name: "appSetting",
   data() {
@@ -81,7 +82,6 @@ export default {
 	created() {
 		if(sessionStorage.getItem('email'))
         {
-            this.uInfo=true;
             this.email=sessionStorage.getItem('email');
         }
 	},
@@ -93,7 +93,10 @@ export default {
     judge(){
       if(!sessionStorage.getItem('email'))
       {
-        alert('还未登录 请先登录', 'Hello MUI');
+        let instance=Toast({
+				message:'还未登录 无法进行操作 请登录',
+				duration:1000
+			})
         return false;
       }
       else

@@ -166,7 +166,7 @@
    </div>   
 </template>
 <script>
-import {Button,Cell,Navbar, TabItem} from 'mint-ui'
+import {Button,Cell,Navbar, TabItem, Toast} from 'mint-ui'
 export default {
   name: "app-home",
   data() {
@@ -189,46 +189,65 @@ export default {
             money:null,
             invDate:null
           },
-          dealArr:[
-            {
-              invAmount:null,
-              dealId:null,
-              statusCode:null,
-              expireDate:null,
-              proData:null,
-              estAmount:null
-            },
-            {
-              saleAmount:null,
-              dealId:null,
-              statusCode:null,
-              expireDate:null,
-              saleType:null,
-              reaAmount:null
-            }
-          ]
+          // dealArr:[
+          //   {
+          //     invAmount:null,
+          //     dealId:null,
+          //     statusCode:null,
+          //     expireDate:null,
+          //     proData:null,
+          //     estAmount:null
+          //   },
+          //   {
+          //     saleAmount:null,
+          //     dealId:null,
+          //     statusCode:null,
+          //     expireDate:null,
+          //     saleType:null,
+          //     reaAmount:null
+          //   }
+          // ]
         }
       }
     };
   },created(){
 
-    if(!sessionStorage.getItem('email'))
+    if(this.proving())
     {
-      this.uInfo=false;
-      return;
+      this.getHomeData();
     }
 
-    this.getHomeData();
   },
   methods:{
+    proving(){
+      if(!sessionStorage.getItem('email'))
+      {
+        this.uInfo=false;
+        let instance=Toast({
+          message:'还未登录 无法获取到您的资产信息 请登录',
+          duration:1000
+        })
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+    },
     jumpToDet(){
       this.$router.push('/details');
     },
     toSale(){
-      this.$router.push('/sale');
+      if(this.proving())
+      {
+        this.$router.push('/sale');
+      }
     },
     toBuy(){
-      this.$router.push('/buy');
+      if(this.proving())
+      {
+        this.$router.push('/buy');
+      }
     },
     getHomeData(){
       console.log(this.$store.state);

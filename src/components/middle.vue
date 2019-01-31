@@ -65,35 +65,57 @@
     </div>
 </template>
 <script>
+import {Toast} from 'mint-ui'
 export default {
   name: "appMiddle",
   data() {
     return {
         middle:null,
         middleData:{
-            type:401,
+            type:null,
             data:{
-                service:18,
-                haveExpired:12,
-                canSale:10,
-                todayAmount:226.00,
-                myAmount:338.08,
-                serviceForm:[
-                    {
-                        sId:9527,
-                        slode:"运行中",
-                        createDate:new Date(),
-                        delDate:new Date(),
-                        haveAmount:155
-                    }
-                ]
+                service:null,
+                haveExpired:null,
+                canSale:null,
+                todayAmount:null,
+                myAmount:null,
+                // serviceForm:[
+                //     {
+                //         sId:9527,
+                //         slode:"运行中",
+                //         createDate:new Date(),
+                //         delDate:new Date(),
+                //         haveAmount:155
+                //     }
+                // ]
             }
         }
     };
   },created(){
-    this.getMiddleData();
+		if(this.proving())
+		{
+    	this.getMiddleData();
+		}
   },
+	beforeDestroy() {
+		
+	},
   methods:{
+		proving(){
+      if(!sessionStorage.getItem('email'))
+      {
+        this.uInfo=false;
+        let instance=Toast({
+          message:'还未登录 无法获取到您的资产信息 请登录',
+          duration:1000
+        })
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+    },
     getMiddleData(){
         let url = sessionStorage.getItem('serverIp')+"/middle";
         this.middle = this.$store.state.loginData;

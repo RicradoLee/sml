@@ -135,9 +135,9 @@ app.post('/middle',(req,res)=>{
   let middleData={
     type:401,
     data:{
-        service:18,
-        haveExpired:12,
-        canSale:10,
+        service:18,//运行中
+        haveExpired:12,//已到期
+        canSale:10,//可售出
         todayAmount:226.00,
         myAmount:338.08,
         serviceForm:[
